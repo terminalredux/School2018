@@ -105,6 +105,14 @@ class AcademicTitleController extends Controller
 
         return $this->redirect(['index']);
     }
+    
+    /**
+     * @return mixed
+     */
+    public function actionOrder()
+    {
+        return $this->render('order');
+    }
 
     /**
      * Finds the AcademicTitle model based on its primary key value.
