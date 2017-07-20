@@ -76,4 +76,9 @@ class AcademicTitle extends ActiveRecord
     {
         return new AcademicTitleQuery(get_called_class());
     }
+    
+    public function test()
+    {
+        return 5;
+    }
 }
