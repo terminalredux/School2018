@@ -45,18 +45,6 @@ class AcademicTitleController extends Controller
     }
 
     /**
-     * Displays a single AcademicTitle model.
-     * @param integer $id
-     * @return mixed
-     */
-    public function actionView($id)
-    {
-        return $this->render('view', [
-            'model' => $this->findModel($id),
-        ]);
-    }
-
-    /**
      * Creates a new AcademicTitle model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
