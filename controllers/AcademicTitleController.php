@@ -54,13 +54,16 @@ class AcademicTitleController extends Controller
     {
         $model = new AcademicTitle();
 
-        if ($model->load(Yii::$app->request->post()) && $model->saveAcademicTitle()) {
-            return $this->redirect(['index']);
-        } else {
-            return $this->render('create', [
-                'model' => $model,
-            ]);
-        }
+        if ($model->load(Yii::$app->request->post())) {
+            if ($model->saveAcademicTitle()) {
+                $this->success(Yii::t('flash', 'academic_title.save_success'));
+            } else {
+                $this->error(Yii::t('flash', 'academic_title.save_error'));
+            }
+            return $this->redirect(['index']);   
+        } 
+        
+        return $this->render('create', ['model' => $model]);   
     }
 
     /**
@@ -73,13 +76,16 @@ class AcademicTitleController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post())) {
+            if ($model->save()) {
+                $this->success(Yii::t('flash', 'academic_title.update_success'));
+            } else {
+                $this->error(Yii::t('flash', 'academic_title.update_error'));
+            }
             return $this->redirect(['index']);
-        } else {
-            return $this->render('update', [
-                'model' => $model,
-            ]);
-        }
+        } 
+        
+        return $this->render('update', ['model' => $model]);
     }
 
     /**
@@ -90,7 +96,11 @@ class AcademicTitleController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        if ($this->findModel($id)->delete()) {
+            $this->success(Yii::t('flash', 'academic_title.delete_success'));
+        } else {
+            $this->error(Yii::t('flash', 'academic_title.delete_error'));
+        }
 
         return $this->redirect(['index']);
     }
@@ -109,7 +119,6 @@ class AcademicTitleController extends Controller
             return $this->redirect(['index']);
         } 
        
-        
         return $this->render('order', [
             'modelForm'    => $modelForm,
             'sortableData' => $sortableData

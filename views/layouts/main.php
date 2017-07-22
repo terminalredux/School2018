@@ -1,13 +1,16 @@
 <?php
 
-/* @var $this \yii\web\View */
+/* @var $this View */
 /* @var $content string */
 
-use yii\helpers\Html;
+use app\assets\AppAsset;
+use yii\bootstrap\Alert;
 use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
+use yii\helpers\ArrayHelper;
+use yii\helpers\Html;
+use yii\web\View;
 use yii\widgets\Breadcrumbs;
-use app\assets\AppAsset;
 
 
 AppAsset::register($this);
@@ -57,11 +60,16 @@ AppAsset::register($this);
     ]);
     NavBar::end();
     ?>
-
     <div class="container">
         <?= Breadcrumbs::widget([
             'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
         ]) ?>
+        <?php foreach (Yii::$app->session->getAllFlashes() as $message): ?>
+        <?= Alert::widget([
+            'body'=>ArrayHelper::getValue($message, 'body'),
+            'options'=>ArrayHelper::getValue($message, 'options'),
+        ])?>
+    <?php endforeach; ?>
         <?= $content ?>
     </div>
 </div>

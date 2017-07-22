@@ -13,12 +13,15 @@ $config = [
               'translations' => [
                   'app*' => [
                       'class' => 'yii\i18n\PhpMessageSource',
-                      //'basePath' => '@app/messages',
                       'sourceLanguage' => 'en',
                       'fileMap' => [
                           'app' => 'app.php',
                           'app/error' => 'error.php',
                       ],
+                  ],
+                  'flash*' => [
+                      'class' => 'yii\i18n\PhpMessageSource',
+                      'sourceLanguage' => 'en',
                   ],
               ],
           ],

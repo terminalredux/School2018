@@ -10,7 +10,6 @@ use yii\widgets\ActiveForm;
     <?php $form = ActiveForm::begin(); ?>
 
     <?= $form->field($model, 'short')->textInput(['maxlength' => true]) ?>
-
     <?= $form->field($model, 'full')->textInput(['maxlength' => true]) ?>
 
     <div class="form-group">
