@@ -46,7 +46,6 @@ class AcademicTitle extends ActiveRecord
     public function rules()
     {
         return [
-            [['short', 'full', 'order'], 'required'],
             [['order', 'status', 'created_at', 'updated_at'], 'integer'],
             [['short'], 'string', 'max' => 50],
             [['full'], 'string', 'max' => 255],

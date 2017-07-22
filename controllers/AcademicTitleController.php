@@ -5,9 +5,9 @@ namespace app\controllers;
 use app\components\web\Controller;
 use app\models\AcademicTitle\AcademicTitle;
 use app\models\AcademicTitle\AcademicTitleSearch;
+use app\models\Forms\AcademicTitleForm;
 use Yii;
 use yii\filters\VerbFilter;
-use yii\helpers\ArrayHelper;
 use yii\web\NotFoundHttpException;
 
 /**
@@ -74,7 +74,7 @@ class AcademicTitleController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['index']);
         } else {
             return $this->render('update', [
                 'model' => $model,
@@ -100,11 +100,19 @@ class AcademicTitleController extends Controller
      */
     public function actionOrder()
     {
+        $modelForm = new AcademicTitleForm();
         $models = AcademicTitle::find()->andWhere(['status' => 1])->orderBy(['order' => 'asc'])->all();
         $sortableData = AcademicTitle::generateOrderItems($models);
         
+        
+        if ($modelForm->load(Yii::$app->request->post())) {
+            var_dump('We are in');
+            return $this->redirect(['index']);
+        } 
+       
+        
         return $this->render('order', [
-            'models' => $models,
+            'modelForm'    => $modelForm,
             'sortableData' => $sortableData
         ]);
     }
