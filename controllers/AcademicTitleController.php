@@ -2,12 +2,13 @@
 
 namespace app\controllers;
 
-use Yii;
+use app\components\web\Controller;
 use app\models\AcademicTitle\AcademicTitle;
 use app\models\AcademicTitle\AcademicTitleSearch;
-use app\components\web\Controller;
-use yii\web\NotFoundHttpException;
+use Yii;
 use yii\filters\VerbFilter;
+use yii\helpers\ArrayHelper;
+use yii\web\NotFoundHttpException;
 
 /**
  * AcademicTitleController implements the CRUD actions for AcademicTitle model.
@@ -99,7 +100,13 @@ class AcademicTitleController extends Controller
      */
     public function actionOrder()
     {
-        return $this->render('order');
+        $models = AcademicTitle::find()->andWhere(['status' => 1])->orderBy(['order' => 'asc'])->all();
+        $array = ArrayHelper::map($models, 'id', 'order');
+        
+        return $this->render('order', [
+            'models' => $models,
+            'array'  => $array
+        ]);
     }
 
     /**

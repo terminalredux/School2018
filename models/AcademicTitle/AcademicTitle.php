@@ -77,8 +77,14 @@ class AcademicTitle extends ActiveRecord
         return new AcademicTitleQuery(get_called_class());
     }
     
-    public function test()
+    /**
+     * 
+     */
+    public function something()
     {
-        return 5;
+        
     }
+    
+    
+    
 }
