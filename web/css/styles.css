@@ -1,3 +1,24 @@
+/* --------------------  BREADCRUMB -------------------- */
+/* --------------------             -------------------- */
+.breadcrumb {
+    background: none;
+    font-size: 0.8em;
+    padding-left: 0px;
+    padding-right: 0px;
+    float: right;
+}
+
+.breadcrumb a {
+    color: #777;
+    text-decoration: none;
+}
+
+.breadcrumb a:hover {
+    color: #3498db;
+    transition: color 0.2s ease-in-out;
+}
+/* --------------------    BUTTONS   -------------------- */
+/* --------------------              -------------------- */
 .btn-success {
     background-color: #ffffff;
     border-color: #2ecc71;

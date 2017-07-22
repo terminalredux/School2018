@@ -23,6 +23,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
             'short',
             'full',
+            'order',
             'created_at:datetime',
             
             [
