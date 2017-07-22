@@ -44,3 +44,14 @@ input[type=text] {
 .panel {
     border-radius: 0px;
 }
+/* --------------------     FLASH    -------------------- */
+/* --------------------              -------------------- */
+.alert {
+    border-radius: 0px;
+    font-size: 0.9em;
+}
+.alert-success {
+    color: #fdfdfd;
+    background-color: #2ecc71;
+    border-color: #27ae60;
+}
