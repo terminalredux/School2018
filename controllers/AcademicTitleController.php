@@ -101,11 +101,11 @@ class AcademicTitleController extends Controller
     public function actionOrder()
     {
         $models = AcademicTitle::find()->andWhere(['status' => 1])->orderBy(['order' => 'asc'])->all();
-        $array = ArrayHelper::map($models, 'id', 'order');
+        $sortableData = AcademicTitle::generateOrderItems($models);
         
         return $this->render('order', [
             'models' => $models,
-            'array'  => $array
+            'sortableData' => $sortableData
         ]);
     }
 

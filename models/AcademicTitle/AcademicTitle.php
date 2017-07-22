@@ -5,6 +5,7 @@ namespace app\models\AcademicTitle;
 use Yii;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "academic_title".
@@ -77,12 +78,14 @@ class AcademicTitle extends ActiveRecord
         return new AcademicTitleQuery(get_called_class());
     }
     
-    /**
-     * 
-     */
-    public function something()
+    public function generateOrderItems($models)
     {
-        
+        return ArrayHelper::map($models, 'id', 'sortableItemName');
+    }
+    
+    public function getSortableItemName()
+    {
+        return ['content' => $this->short];
     }
     
     
