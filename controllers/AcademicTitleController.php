@@ -53,7 +53,8 @@ class AcademicTitleController extends Controller
     public function actionCreate()
     {
         $model = new AcademicTitle();
-
+        $model->setScenario(AcademicTitle::SCENARIO_CREATE);
+        
         if ($model->load(Yii::$app->request->post())) {
             if ($model->saveAcademicTitle()) {
                 $this->success(Yii::t('flash', 'academic_title.save_success'));
@@ -75,7 +76,7 @@ class AcademicTitleController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-
+        
         if ($model->load(Yii::$app->request->post())) {
             if ($model->save()) {
                 $this->success(Yii::t('flash', 'academic_title.update_success'));
