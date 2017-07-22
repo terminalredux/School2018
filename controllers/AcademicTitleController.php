@@ -54,7 +54,7 @@ class AcademicTitleController extends Controller
     {
         $model = new AcademicTitle();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post()) && $model->saveAcademicTitle()) {
             return $this->redirect(['index']);
         } else {
             return $this->render('create', [
@@ -103,7 +103,6 @@ class AcademicTitleController extends Controller
         $modelForm = new AcademicTitleForm();
         $models = AcademicTitle::find()->andWhere(['status' => 1])->orderBy(['order' => 'asc'])->all();
         $sortableData = AcademicTitle::generateOrderItems($models);
-        
         
         if ($modelForm->load(Yii::$app->request->post())) {
             var_dump('We are in');

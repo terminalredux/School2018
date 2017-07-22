@@ -5,6 +5,7 @@ namespace app\models\AcademicTitle;
 use Yii;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
+use yii\db\Exception;
 use yii\helpers\ArrayHelper;
 
 /**
@@ -85,6 +86,19 @@ class AcademicTitle extends ActiveRecord
     public function getSortableItemName()
     {
         return ['content' => $this->short];
+    }
+    
+    /**
+     * Purpose of this method: order is
+     * generated dynamicaly based on the
+     * highest searched value
+     * @return bool
+     */
+    public function saveAcademicTitle()
+    {
+        $maxOrderValue = AcademicTitle::find()->select('max(academic_title.order)')->scalar();
+        $this->order = $maxOrderValue + 1;
+        return $this->save();
     }
     
     

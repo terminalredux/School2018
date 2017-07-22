@@ -13,8 +13,6 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'full')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'order')->textInput() ?>
-
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? Yii::t('app', 'academic_title.save') : Yii::t('app', 'academic_title.update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>
