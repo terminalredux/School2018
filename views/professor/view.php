@@ -3,7 +3,7 @@
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 
-$this->title = $model->id;
+$this->title = $model->firstname . ' ' . $model->lastname;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'professor.professors'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>

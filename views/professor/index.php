@@ -19,7 +19,10 @@ $this->params['breadcrumbs'][] = $this->title;
         'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-            'academicTitle.short',
+            [
+                'label' => Yii::t('app', 'academic_title.academic_title'),
+                'attribute' => 'academicTitle.short'
+            ],
             'firstname',
             'middlename',
             'lastname',

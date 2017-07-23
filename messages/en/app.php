@@ -30,6 +30,7 @@ return [
     'professor.created_at' => 'Created At',
     'professor.updated_at' => 'Updated at',
     'professor.create_professor' => 'Create Professor',
+    'professor.update_professor' => 'Update Professor',
     'professor.professors' => 'Professors',
     'professor.create_professor' => 'Create Professor',
     'professor.male' => 'Male',
