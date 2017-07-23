@@ -24,7 +24,8 @@ use yii\widgets\ActiveForm;
                 <div class="col-md-2">
                     <?= Html::submitButton($model->isNewRecord ? Yii::t('app', 'academic_title.save') : Yii::t('app', 'academic_title.update'), 
                         [
-                            'class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary',
+                            //'class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary',
+                            'class' => 'btn btn-success' ,
                             'style' => 'width: 100%'
                         ]) ?>
                 </div>    

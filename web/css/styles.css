@@ -1,11 +1,15 @@
+body {
+    font-family: 'Roboto', sans-serif;
+}
 /* --------------------  BREADCRUMB -------------------- */
 /* --------------------             -------------------- */
 .breadcrumb {
     background: none;
     float: right;
     font-size: 0.8em;
-    padding-left: 0px;
-    padding-right: 0px;
+    margin-bottom: 5px;
+    padding-left: 0;
+    padding-right: 0;
 }
 
 .breadcrumb a {
@@ -30,19 +34,8 @@
     text-transform: uppercase;
     transition: background 0.2s ease-in-out;
 }
-/* --------------------     FORMS    -------------------- */
-/* --------------------              -------------------- */
-input[type=text] {
-    border-radius: 0px;
-    font-size: 0.8em;
-}
-.help-block {
-    font-size: 0.8em;
-}
-/* --------------------     PANEL    -------------------- */
-/* --------------------              -------------------- */
-.panel {
-    border-radius: 0px;
+.btn-success:hover {
+    border-color: #2ecc71;
 }
 /* --------------------     FLASH    -------------------- */
 /* --------------------              -------------------- */
@@ -54,4 +47,42 @@ input[type=text] {
     color: #fdfdfd;
     background-color: #2ecc71;
     border-color: #27ae60;
+}
+
+/* --------------------     FORMS    -------------------- */
+/* --------------------              -------------------- */
+input[type=text] {
+    border-radius: 0px;
+    font-size: 0.8em;
+}
+.help-block {
+    font-size: 0.8em;
+}
+/* --------------------     GRIDVIEW    -------------------- */
+/* --------------------                 -------------------- */
+th a {
+    color: #333;
+}
+th a:hover {
+    color: #3498db;
+    text-decoration: none;
+    transition: color 0.2s ease-in-out;
+}
+td .glyphicon {
+    color: #333;
+}
+td .glyphicon:hover {
+    color: #3498db;
+    transition: color 0.2s ease-in-out;
+}
+.table-striped > tbody > tr:nth-child(2n+1) > td, .table-striped > tbody > tr:nth-child(odd) > th {
+   background-color: #eaf2f7;
+}
+.table-striped > tbody {
+    font-size: 0.9em;
+}
+/* --------------------     PANEL    -------------------- */
+/* --------------------              -------------------- */
+.panel {
+    border-radius: 0;
 }
