@@ -15,4 +15,10 @@ return [
     'professor.update_success' => 'Professor has been updated',
     'professor.delete_error' => 'Error while deleting Professor',
     'professor.delete_success' => 'Professor has been removed',
+    'room_type.save_success' => 'Room type has been created',
+    'room_type.save_error' => 'Error while saving Room type',
+    'room_type.update_error' => 'Error while updating Room type',
+    'room_type.update_success' => 'Room type has been updated',
+    'room_type.delete_error' => 'Error while deleting Room type',
+    'room_type.delete_success' => 'Room type has been removed',
 ];
