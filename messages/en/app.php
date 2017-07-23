@@ -37,6 +37,7 @@ return [
     'professor.female' => 'Female',
     'navbar.academic_title' => 'Academic Title',
     'navbar.professor' => 'Professor',
+    'system.school2018' => 'School 2018',
     'system.create' => 'Create',
     'system.save' => 'Save',
     'system.update' => 'Update',

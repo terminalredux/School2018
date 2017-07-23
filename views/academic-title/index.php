@@ -13,14 +13,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="academic-title-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
-  
-    <p>
-        <?php //Html::a(Yii::t('app', 'academic_title.create_academic_title'), ['create'], ['class' => 'btn btn-success']) ?>
-        <?php //Html::a(Yii::t('app', 'Set Order'), ['order'], ['class' => 'btn btn-success']) ?>
-    </p>
-    
-   
-   
+ 
     <div class="row">
         <div class="col-md-6">
             <?php Pjax::begin(); ?>    
@@ -53,10 +46,10 @@ $this->params['breadcrumbs'][] = $this->title;
             </div>
             <div class="row">
                 <div class="panel panel-default">
-                    <div class="panel-heading">
+                    <div class="panel-heading" data-toggle="collapse" href="#panelOrder" style="cursor: pointer;">
                         <?= Yii::t('app', 'academic_title.order_title') ?>
                     </div>
-                    <div class="panel-body">
+                    <div class="panel-body collapse" id="panelOrder">
                     <?php
                     $form = ActiveForm::begin([
                             'action' => Url::to(['academic-title/index']),
