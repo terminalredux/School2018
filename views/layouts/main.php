@@ -1,13 +1,16 @@
 <?php
 
-/* @var $this \yii\web\View */
+/* @var $this View */
 /* @var $content string */
 
-use yii\helpers\Html;
+use app\assets\AppAsset;
+use yii\bootstrap\Alert;
 use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
+use yii\helpers\ArrayHelper;
+use yii\helpers\Html;
+use yii\web\View;
 use yii\widgets\Breadcrumbs;
-use app\assets\AppAsset;
 
 
 AppAsset::register($this);
@@ -19,6 +22,7 @@ AppAsset::register($this);
     <meta charset="<?= Yii::$app->charset ?>">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
     <?= Html::csrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
@@ -57,11 +61,18 @@ AppAsset::register($this);
     ]);
     NavBar::end();
     ?>
-
     <div class="container">
+        <div class="row">
         <?= Breadcrumbs::widget([
             'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
         ]) ?>
+        </div>
+        <?php foreach (Yii::$app->session->getAllFlashes() as $message): ?>
+        <?= Alert::widget([
+            'body'=>ArrayHelper::getValue($message, 'body'),
+            'options'=>ArrayHelper::getValue($message, 'options'),
+        ])?>
+    <?php endforeach; ?>
         <?= $content ?>
     </div>
 </div>

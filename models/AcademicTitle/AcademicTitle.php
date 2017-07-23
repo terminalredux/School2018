@@ -5,6 +5,8 @@ namespace app\models\AcademicTitle;
 use Yii;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
+use yii\db\Exception;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "academic_title".
@@ -19,6 +21,18 @@ use yii\db\ActiveRecord;
  */
 class AcademicTitle extends ActiveRecord
 {
+    const SCENARIO_CREATE = 'create-academic-title';
+    
+    /**
+     * @inheritdoc
+     */
+    public function scenarios()
+    {
+        return array_merge(parent::scenarios(), [
+            self::SCENARIO_CREATE => ['short', 'full'],
+        ]);
+    }
+    
     /**
      * @inheritdoc
      */
@@ -45,7 +59,7 @@ class AcademicTitle extends ActiveRecord
     public function rules()
     {
         return [
-            [['short', 'full', 'order'], 'required'],
+            [['short', 'full'], 'required', 'on' => self::SCENARIO_CREATE],
             [['order', 'status', 'created_at', 'updated_at'], 'integer'],
             [['short'], 'string', 'max' => 50],
             [['full'], 'string', 'max' => 255],
@@ -77,8 +91,29 @@ class AcademicTitle extends ActiveRecord
         return new AcademicTitleQuery(get_called_class());
     }
     
-    public function test()
+    public function generateOrderItems($models)
     {
-        return 5;
+        return ArrayHelper::map($models, 'id', 'sortableItemName');
     }
+    
+    public function getSortableItemName()
+    {
+        return ['content' => $this->short];
+    }
+    
+    /**
+     * Purpose of this method: order is
+     * generated dynamicaly based on the
+     * highest searched value
+     * @return bool
+     */
+    public function saveAcademicTitle()
+    {
+        $maxOrderValue = AcademicTitle::find()->select('max(academic_title.order)')->scalar();
+        $this->order = $maxOrderValue + 1;
+        return $this->save();
+    }
+    
+    
+    
 }

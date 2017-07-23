@@ -5,5 +5,5 @@ use yii\web\Controller as YiiController;
 
 class Controller extends YiiController
 {
-    
+    use \app\components\traits\FlashMessage;
 }

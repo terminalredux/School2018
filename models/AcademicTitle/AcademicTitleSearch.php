@@ -41,7 +41,7 @@ class AcademicTitleSearch extends AcademicTitle
      */
     public function search($params)
     {
-        $query = AcademicTitle::find()->orderBy(['order' => 'asc']);
+        $query = AcademicTitle::find();
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,

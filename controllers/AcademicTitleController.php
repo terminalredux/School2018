@@ -2,12 +2,13 @@
 
 namespace app\controllers;
 
-use Yii;
+use app\components\web\Controller;
 use app\models\AcademicTitle\AcademicTitle;
 use app\models\AcademicTitle\AcademicTitleSearch;
-use app\components\web\Controller;
-use yii\web\NotFoundHttpException;
+use app\models\Forms\AcademicTitleForm;
+use Yii;
 use yii\filters\VerbFilter;
+use yii\web\NotFoundHttpException;
 
 /**
  * AcademicTitleController implements the CRUD actions for AcademicTitle model.
@@ -45,18 +46,6 @@ class AcademicTitleController extends Controller
     }
 
     /**
-     * Displays a single AcademicTitle model.
-     * @param integer $id
-     * @return mixed
-     */
-    public function actionView($id)
-    {
-        return $this->render('view', [
-            'model' => $this->findModel($id),
-        ]);
-    }
-
-    /**
      * Creates a new AcademicTitle model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
@@ -64,14 +53,18 @@ class AcademicTitleController extends Controller
     public function actionCreate()
     {
         $model = new AcademicTitle();
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['index']);
-        } else {
-            return $this->render('create', [
-                'model' => $model,
-            ]);
-        }
+        $model->setScenario(AcademicTitle::SCENARIO_CREATE);
+        
+        if ($model->load(Yii::$app->request->post())) {
+            if ($model->saveAcademicTitle()) {
+                $this->success(Yii::t('flash', 'academic_title.save_success'));
+            } else {
+                $this->error(Yii::t('flash', 'academic_title.save_error'));
+            }
+            return $this->redirect(['index']);   
+        } 
+        
+        return $this->render('create', ['model' => $model]);   
     }
 
     /**
@@ -83,14 +76,17 @@ class AcademicTitleController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        } else {
-            return $this->render('update', [
-                'model' => $model,
-            ]);
-        }
+        
+        if ($model->load(Yii::$app->request->post())) {
+            if ($model->save()) {
+                $this->success(Yii::t('flash', 'academic_title.update_success'));
+            } else {
+                $this->error(Yii::t('flash', 'academic_title.update_error'));
+            }
+            return $this->redirect(['index']);
+        } 
+        
+        return $this->render('update', ['model' => $model]);
     }
 
     /**
@@ -101,7 +97,11 @@ class AcademicTitleController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        if ($this->findModel($id)->delete()) {
+            $this->success(Yii::t('flash', 'academic_title.delete_success'));
+        } else {
+            $this->error(Yii::t('flash', 'academic_title.delete_error'));
+        }
 
         return $this->redirect(['index']);
     }
@@ -111,7 +111,19 @@ class AcademicTitleController extends Controller
      */
     public function actionOrder()
     {
-        return $this->render('order');
+        $modelForm = new AcademicTitleForm();
+        $models = AcademicTitle::find()->andWhere(['status' => 1])->orderBy(['order' => 'asc'])->all();
+        $sortableData = AcademicTitle::generateOrderItems($models);
+        
+        if ($modelForm->load(Yii::$app->request->post())) {
+            var_dump('We are in');
+            return $this->redirect(['index']);
+        } 
+       
+        return $this->render('order', [
+            'modelForm'    => $modelForm,
+            'sortableData' => $sortableData
+        ]);
     }
 
     /**

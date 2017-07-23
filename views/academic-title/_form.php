@@ -3,25 +3,37 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
-/* @var $this yii\web\View */
-/* @var $model app\models\AcademicTitle\AcademicTitle */
-/* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="academic-title-form">
-    <div class="col-md-6">
+    
+
+
     <?php $form = ActiveForm::begin(); ?>
-
-    <?= $form->field($model, 'short')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'full')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'order')->textInput() ?>
-
-    <div class="form-group">
-        <?= Html::submitButton($model->isNewRecord ? Yii::t('app', 'academic_title.save') : Yii::t('app', 'academic_title.update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+    
+    
+    <div class="row">
+        <div class="panel panel-default">
+            <div class="panel-heading"><?= $title ?></div>
+            <div class="panel-body">
+                <div class="col-md-3">
+                    <?= $form->field($model, 'short')->textInput(['maxlength' => true, 'placeholder' => $model->getAttributeLabel('short')])->label(false) ?>
+                </div>
+                <div class="col-md-7">
+                    <?= $form->field($model, 'full')->textInput(['maxlength' => true, 'placeholder' => $model->getAttributeLabel('full')])->label(false) ?>
+                </div>
+                <div class="col-md-2">
+                    <?= Html::submitButton($model->isNewRecord ? Yii::t('app', 'academic_title.save') : Yii::t('app', 'academic_title.update'), 
+                        [
+                            //'class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary',
+                            'class' => 'btn btn-success' ,
+                            'style' => 'width: 100%'
+                        ]) ?>
+                </div>    
+            </div>
+        </div>
     </div>
-    </div>
+
+    
+
     <?php ActiveForm::end(); ?>
 
-</div>
