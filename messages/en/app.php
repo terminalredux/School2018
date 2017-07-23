@@ -9,7 +9,7 @@ return [
     'academic_title.full' => 'Fullname',
     'academic_title.id' => 'ID',
     'academic_title.order' => 'Order',
-    'academic_title.order_title' => 'Order Academic Titles',
+    'academic_title.order_title' => 'Change order',
     'academic_title.reset' => 'Reset',
     'academic_title.save' => 'Save',
     'academic_title.search' => 'Search',
