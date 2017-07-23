@@ -44,6 +44,7 @@ return [
     'room_type.room_type' => 'Room type',
     'room_type.room_types' => 'Room types',
     'room_type.create' => 'Create Room Type',
+    'room_type.update' => 'Update Room Type',
     'navbar.academic_title' => 'Academic Title',
     'navbar.professor' => 'Professor',
     'navbar.room_type' => 'Room Type',

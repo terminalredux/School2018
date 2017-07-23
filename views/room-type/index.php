@@ -33,5 +33,11 @@ $this->params['breadcrumbs'][] = $this->title;
                 ]); ?>
             <?php Pjax::end(); ?>
             </div>
+            <div class="col-md-6">
+                <?= $this->render('_form', [
+                    'model' => $model,
+                    'title' => Yii::t('app', 'academic_title.create_academic_title'),
+                ]) ?>
+            </div>
         </div>
 </div>

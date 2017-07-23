@@ -8,7 +8,6 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?= $this->render('_form', [
         'model' => $model,
-        'title' => Yii::t('app', 'academic_title.create_academic_title'),
     ]) ?>
 
 </div>

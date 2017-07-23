@@ -35,23 +35,10 @@ class RoomTypeController extends Controller
      */
     public function actionIndex()
     {
+        $model = new RoomType();
+        
         $searchModel = new RoomTypeSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
-        return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);
-    }
-
-    /**
-     * Creates a new RoomType model.
-     * If creation is successful, the browser will be redirected to the 'view' page.
-     * @return mixed
-     */
-    public function actionCreate()
-    {
-        $model = new RoomType();
 
         if ($model->load(Yii::$app->request->post())) {
             if ($model->save()) {
@@ -62,8 +49,10 @@ class RoomTypeController extends Controller
             return $this->redirect(['index']);
         }
         
-        return $this->render('create', [
+        return $this->render('index', [
             'model' => $model,
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
         ]);
     }
 
