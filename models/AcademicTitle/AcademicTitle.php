@@ -2,8 +2,10 @@
 
 namespace app\models\AcademicTitle;
 
+use app\models\Professor\Professor;
 use Yii;
 use yii\behaviors\TimestampBehavior;
+use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 use yii\helpers\ArrayHelper;
 
@@ -80,6 +82,14 @@ class AcademicTitle extends ActiveRecord
             'created_at' => Yii::t('app', 'academic_title.created_at'),
             'updated_at' => Yii::t('app', 'academic_title.updated_at'),
         ];
+    }
+    
+    /**
+     * @return ActiveQuery
+     */
+    public function getProfessors()
+    {
+        return $this->hasMany(Professor::className(), ['academic_title_id' => 'id']);
     }
 
     /**

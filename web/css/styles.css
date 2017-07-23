@@ -55,6 +55,11 @@ body {
     background-color: #2ecc71;
     border-color: #27ae60;
 }
+.alert-danger {
+    color: #fdfdfd;
+    background-color: #e74c3c;
+    border-color: #e74c3c;
+}
 
 /* --------------------     FORMS    -------------------- */
 /* --------------------              -------------------- */

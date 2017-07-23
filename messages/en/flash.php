@@ -7,6 +7,7 @@ return [
     'academic_title.update_success' => 'Academic title has been updated',
     'academic_title.delete_error' => 'Error while deleting Academic title',
     'academic_title.delete_success' => 'Academic title has been removed',
+    'academic_title.delete_has_relations_prof' => 'Academic title can not be removed. Item is used by some professor',
     'academic_title.order_success' => 'Order of the Academic titles has been updated',
     'academic_title.order_error' => 'Problem occurred after changing order of the academic titles',
     'professor.save_success' => 'Professor has been created',

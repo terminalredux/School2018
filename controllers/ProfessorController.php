@@ -95,7 +95,7 @@ class ProfessorController extends Controller
             } else {
                 $this->error(Yii::t('flash', 'professor.update_error'));
             }
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['index']);
         } else {
             return $this->render('update', [
                 'model' => $model,
@@ -116,6 +116,8 @@ class ProfessorController extends Controller
         } else {
             $this->error(Yii::t('flash', 'professor.delete_error'));
         }
+        
+        
         return $this->redirect(['index']);
     }
 

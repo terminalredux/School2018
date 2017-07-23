@@ -106,10 +106,14 @@ class AcademicTitleController extends Controller
      */
     public function actionDelete($id)
     {
-        if ($this->findModel($id)->delete()) {
-            $this->success(Yii::t('flash', 'academic_title.delete_success'));
+        if ($this->findModel($id)->professors) { 
+            $this->error(Yii::t('flash', 'academic_title.delete_has_relations_prof'));
         } else {
-            $this->error(Yii::t('flash', 'academic_title.delete_error'));
+            if ($this->findModel($id)->delete()) {
+                $this->success(Yii::t('flash', 'academic_title.delete_success'));
+            } else {
+                $this->error(Yii::t('flash', 'academic_title.delete_error'));
+            }
         }
 
         return $this->redirect(['index']);
