@@ -10,7 +10,15 @@ class AcademicTitleForm extends AcademicTitle
 {
     public $orderItem; 
     
-    //return array_merge(parent::behaviors(), [
+    /**
+     * @inheritdoc
+     */
+    public function scenarios()
+    {
+        return array_merge(parent::scenarios(), [
+            self::SCENARIO_ORDER => ['orderItem'],
+        ]);
+    }
     
     /**
      * @inheritdoc
@@ -18,7 +26,28 @@ class AcademicTitleForm extends AcademicTitle
     public function rules()
     {
         return array_merge(parent::rules(), [
+            [['orderItem'], 'required', 'on' => self::SCENARIO_ORDER],
             ['orderItem', 'safe']
         ]);
+    }
+    
+    /**
+     * @return bool
+     */
+    public function saveOrder()
+    {
+        $success = true;
+        $itemsID = explode(',', $this->orderItem);
+     
+        foreach ($itemsID as $key => $value) {
+            $model = AcademicTitle::find()->andWhere(['id' => $value])->limit(1)->one();
+            if ($model) {
+                $model->order = $key;
+                if (!$model->save()) {
+                    $success = false;
+                }
+            }
+        }
+        return $success;
     }
 }

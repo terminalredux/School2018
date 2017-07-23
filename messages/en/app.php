@@ -18,5 +18,6 @@ return [
     'academic_title.update' => 'Update',
     'academic_title.update_academic_title' => 'Update Academic Title',
     'academic_title.updated_at' => 'Updated at',
+    'system.save' => 'Save',
     'navbar.academic_title' => 'Academic Title',
 ];
