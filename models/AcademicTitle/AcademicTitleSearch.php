@@ -45,6 +45,7 @@ class AcademicTitleSearch extends AcademicTitle
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'sort' => ['defaultOrder' => ['order'=>SORT_ASC]]
         ]);
 
         $this->load($params);

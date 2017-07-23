@@ -22,6 +22,7 @@ use yii\helpers\ArrayHelper;
 class AcademicTitle extends ActiveRecord
 {
     const SCENARIO_CREATE = 'create-academic-title';
+    const SCENARIO_ORDER = 'order-academic-title';
     
     /**
      * @inheritdoc

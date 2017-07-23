@@ -36,25 +36,18 @@ class AcademicTitleController extends Controller
      */
     public function actionIndex()
     {
-        $searchModel = new AcademicTitleSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
-        return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);
-    }
-
-    /**
-     * Creates a new AcademicTitle model.
-     * If creation is successful, the browser will be redirected to the 'view' page.
-     * @return mixed
-     */
-    public function actionCreate()
-    {
         $model = new AcademicTitle();
         $model->setScenario(AcademicTitle::SCENARIO_CREATE);
         
+        $modelForm = new AcademicTitleForm();
+        $modelForm->setScenario(AcademicTitle::SCENARIO_ORDER);
+        
+        $modelsAcaTit = AcademicTitle::find()->andWhere(['status' => 1])->orderBy(['order' => 'asc'])->all();
+        $sortableData = AcademicTitle::generateOrderItems($modelsAcaTit);
+        
+        $searchModel = new AcademicTitleSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
         if ($model->load(Yii::$app->request->post())) {
             if ($model->saveAcademicTitle()) {
                 $this->success(Yii::t('flash', 'academic_title.save_success'));
@@ -64,7 +57,23 @@ class AcademicTitleController extends Controller
             return $this->redirect(['index']);   
         } 
         
-        return $this->render('create', ['model' => $model]);   
+        if ($modelForm->load(Yii::$app->request->post())) {
+            if ($modelForm->saveOrder()) {
+                $this->success(Yii::t('flash', 'academic_title.order_success'));
+            } else {
+                $this->error(Yii::t('flash', 'academic_title.order_error'));
+            }
+            return $this->redirect(['index']);
+        } 
+        
+        
+        return $this->render('index', [
+            'model' => $model,
+            'modelForm'    => $modelForm,
+            'sortableData' => $sortableData,
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
     }
 
     /**
@@ -106,26 +115,6 @@ class AcademicTitleController extends Controller
         return $this->redirect(['index']);
     }
     
-    /**
-     * @return mixed
-     */
-    public function actionOrder()
-    {
-        $modelForm = new AcademicTitleForm();
-        $models = AcademicTitle::find()->andWhere(['status' => 1])->orderBy(['order' => 'asc'])->all();
-        $sortableData = AcademicTitle::generateOrderItems($models);
-        
-        if ($modelForm->load(Yii::$app->request->post())) {
-            var_dump('We are in');
-            return $this->redirect(['index']);
-        } 
-       
-        return $this->render('order', [
-            'modelForm'    => $modelForm,
-            'sortableData' => $sortableData
-        ]);
-    }
-
     /**
      * Finds the AcademicTitle model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.

@@ -37,6 +37,13 @@ body {
 .btn-success:hover {
     border-color: #2ecc71;
 }
+/* --------------------    COLUMNS   -------------------- */
+/* --------------------              -------------------- */
+.min-spaces {
+    margin: 0;
+    padding: 2px 2px 2px 2px;
+}
+
 /* --------------------     FLASH    -------------------- */
 /* --------------------              -------------------- */
 .alert {
@@ -57,6 +64,10 @@ input[type=text] {
 }
 .help-block {
     font-size: 0.8em;
+    margin-bottom: 0px;
+}
+.has-error {
+    margin-bottom: 0px;
 }
 /* --------------------     GRIDVIEW    -------------------- */
 /* --------------------                 -------------------- */
@@ -81,8 +92,14 @@ td .glyphicon:hover {
 .table-striped > tbody {
     font-size: 0.9em;
 }
+.summary {
+    display: none;
+}
 /* --------------------     PANEL    -------------------- */
 /* --------------------              -------------------- */
 .panel {
     border-radius: 0;
+}
+.tight-pane {
+    padding: 15px 2px 0 2px;
 }
