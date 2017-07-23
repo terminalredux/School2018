@@ -15,14 +15,14 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
  
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-7">
             <?php Pjax::begin(); ?>    
                 <?= GridView::widget([
                     'dataProvider' => $dataProvider,
                     'filterModel' => $searchModel,
                     'columns' => [
                         ['class' => 'yii\grid\SerialColumn'],
-
+                        
                         'short',
                         'full',
 
@@ -35,7 +35,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 ]); ?>
             <?php Pjax::end(); ?>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-5">
             <div class="row">
                 <div class="col-md-12">
                 <?= $this->render('_form', [

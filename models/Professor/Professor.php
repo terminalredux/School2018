@@ -106,4 +106,11 @@ class Professor extends ActiveRecord
     {
         return ArrayHelper::map(AcademicTitle::find()->orderBy(['order' => 'asc'])->all(), 'id', 'short');
     }
+    
+    /*** TO FIX ***/
+    public static function getAcademicTitleListFilter()
+    {
+        return ArrayHelper::map(AcademicTitle::find()->orderBy(['order' => 'asc'])->all(), 'short', 'short');
+    }
+    
 }

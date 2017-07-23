@@ -1,7 +1,8 @@
 <?php
 
-use yii\helpers\Html;
+use app\models\Professor\Professor;
 use yii\grid\GridView;
+use yii\helpers\Html;
 use yii\widgets\Pjax;
 
 $this->title = Yii::t('app', 'professor.professors');
@@ -21,7 +22,11 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
             [
                 'label' => Yii::t('app', 'academic_title.academic_title'),
-                'attribute' => 'academicTitle.short'
+                'attribute' => 'academicTitle.short',
+                'filter' => Professor::getAcademicTitleListFilter(),
+                'value' => function($model) {
+                    return Professor::getAcademicTitleList()[$model->academic_title_id];
+                }
             ],
             'firstname',
             'middlename',
