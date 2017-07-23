@@ -44,6 +44,7 @@ AppAsset::register($this);
         'items' => [
             ['label' => 'Home', 'url' => ['/site/index']],
             ['label' => Yii::t('app', 'navbar.academic_title'), 'url' => ['/academic-title/index']],
+            ['label' => Yii::t('app', 'navbar.professor'), 'url' => ['/professor/index']],
             
             Yii::$app->user->isGuest ? (
                 ['label' => 'Login', 'url' => ['/site/login']]
