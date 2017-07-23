@@ -9,4 +9,10 @@ return [
     'academic_title.delete_success' => 'Academic title has been removed',
     'academic_title.order_success' => 'Order of the Academic titles has been updated',
     'academic_title.order_error' => 'Problem occurred after changing order of the academic titles',
+    'professor.save_success' => 'Professor has been created',
+    'professor.save_error' => 'Error while saving Professor',
+    'professor.update_error' => 'Error while updating Professor',
+    'professor.update_success' => 'Professor has been updated',
+    'professor.delete_error' => 'Error while deleting Professor',
+    'professor.delete_success' => 'Professor has been removed',
 ];
