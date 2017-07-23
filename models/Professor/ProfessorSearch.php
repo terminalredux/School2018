@@ -12,6 +12,7 @@ use app\models\Professor\Professor;
  */
 class ProfessorSearch extends Professor
 {
+   
     /**
      * @inheritdoc
      */
@@ -19,10 +20,17 @@ class ProfessorSearch extends Professor
     {
         return [
             [['id', 'academic_title_id', 'gender', 'status', 'created_at', 'updated_at'], 'integer'],
-            [['firstname', 'middlename', 'lastname', 'website', 'email'], 'safe'],
+            [['firstname', 'middlename', 'lastname', 'website', 'email', 'academicTitle.short'], 'safe'],
         ];
     }
-
+    
+    /**
+     * @inheritdoc
+     */
+    public function attributes()
+    {
+        return array_merge(parent::attributes(), ['academicTitle.short']);
+    }
     /**
      * @inheritdoc
      */
@@ -43,21 +51,22 @@ class ProfessorSearch extends Professor
     {
         $query = Professor::find();
 
-        // add conditions that should always apply here
-
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
-
+        
+        $query->joinWith(['academicTitle']);
+        $dataProvider->sort->attributes['academicTitle.short'] = [
+            'asc' => ['academic_title.short' => SORT_ASC],
+            'desc' => ['academic_title.short' => SORT_DESC],
+        ];
+        
         $this->load($params);
 
         if (!$this->validate()) {
-            // uncomment the following line if you do not want to return any records when validation fails
-            // $query->where('0=1');
             return $dataProvider;
         }
-
-        // grid filtering conditions
+      
         $query->andFilterWhere([
             'id' => $this->id,
             'academic_title_id' => $this->academic_title_id,
@@ -71,8 +80,9 @@ class ProfessorSearch extends Professor
             ->andFilterWhere(['like', 'middlename', $this->middlename])
             ->andFilterWhere(['like', 'lastname', $this->lastname])
             ->andFilterWhere(['like', 'website', $this->website])
-            ->andFilterWhere(['like', 'email', $this->email]);
-
+            ->andFilterWhere(['like', 'email', $this->email])
+            ->andFilterWhere(['like', 'academic_title.short', $this->getAttribute('academicTitle.short')]);
+      
         return $dataProvider;
     }
 }

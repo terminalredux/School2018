@@ -65,8 +65,13 @@ class ProfessorController extends Controller
     {
         $model = new Professor();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if ($model->load(Yii::$app->request->post())) {
+            if ($model->save()) {
+                $this->success(Yii::t('flash', 'professor.save_success'));
+            } else {
+                $this->error(Yii::t('flash', 'professor.save_error'));
+            }
+            return $this->redirect(['index']);
         } else {
             return $this->render('create', [
                 'model' => $model,
@@ -84,7 +89,12 @@ class ProfessorController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post())) {
+            if ($model->save()) {
+                $this->success(Yii::t('flash', 'professor.update_success'));
+            } else {
+                $this->error(Yii::t('flash', 'professor.update_error'));
+            }
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('update', [
@@ -101,8 +111,11 @@ class ProfessorController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
-
+        if ($this->findModel($id)->delete()) {
+            $this->success(Yii::t('flash', 'professor.delete_success'));
+        } else {
+            $this->error(Yii::t('flash', 'professor.delete_error'));
+        }
         return $this->redirect(['index']);
     }
 

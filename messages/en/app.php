@@ -32,6 +32,8 @@ return [
     'professor.create_professor' => 'Create Professor',
     'professor.professors' => 'Professors',
     'professor.create_professor' => 'Create Professor',
+    'professor.male' => 'Male',
+    'professor.female' => 'Female',
     'navbar.academic_title' => 'Academic Title',
     'navbar.professor' => 'Professor',
     'system.create' => 'Create',

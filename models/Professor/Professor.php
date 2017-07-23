@@ -2,8 +2,12 @@
 
 namespace app\models\Professor;
 
-use Yii;
 use app\models\AcademicTitle\AcademicTitle;
+use Yii;
+use yii\behaviors\TimestampBehavior;
+use yii\db\ActiveQuery;
+use yii\db\ActiveRecord;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "professor".
@@ -22,7 +26,7 @@ use app\models\AcademicTitle\AcademicTitle;
  *
  * @property AcademicTitle $academicTitle
  */
-class Professor extends \yii\db\ActiveRecord
+class Professor extends ActiveRecord
 {
     /**
      * @inheritdoc
@@ -30,6 +34,18 @@ class Professor extends \yii\db\ActiveRecord
     public static function tableName()
     {
         return 'professor';
+    }
+    
+    /**
+     * @inheritdoc
+     */
+    public function behaviors()
+    {
+        return [
+            [
+                'class' => TimestampBehavior::className(),
+            ],
+        ];
     }
 
     /**
@@ -67,7 +83,7 @@ class Professor extends \yii\db\ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getAcademicTitle()
     {
@@ -81,5 +97,13 @@ class Professor extends \yii\db\ActiveRecord
     public static function find()
     {
         return new ProfessorQuery(get_called_class());
+    }
+    
+    /**
+     * @return array
+     */
+    public static function getAcademicTitleList()
+    {
+        return ArrayHelper::map(AcademicTitle::find()->orderBy(['order' => 'asc'])->all(), 'id', 'short');
     }
 }
