@@ -22,6 +22,8 @@ return [
     'room_type.update_success' => 'Room type has been updated',
     'room_type.delete_error' => 'Error while deleting Room type',
     'room_type.delete_success' => 'Room type has been removed',
+    'room_type_building.save_success' => 'Room types has been assigned to the building',
+    'room_type_building.save_error' => 'Problem was ocured while the assign roome types to the building',
     'building.save_success' => 'Building has been created',
     'building.save_error' => 'Error while saving Building',
     'building.update_error' => 'Error while updating Building',

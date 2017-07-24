@@ -5,6 +5,7 @@ namespace app\models\RoomType;
 use Yii;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "room_type".
@@ -73,5 +74,15 @@ class RoomType extends ActiveRecord
     public static function find()
     {
         return new RoomTypeQuery(get_called_class());
+    }
+    
+    public function generateOrderRoomTypes($models)
+    {
+        return ArrayHelper::map($models, 'id', 'sortableRoomTypes');
+    }
+    
+    public function getSortableRoomTypes()
+    {
+        return ['content' => $this->type];
     }
 }

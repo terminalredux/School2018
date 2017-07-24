@@ -1,6 +1,9 @@
 body {
     font-family: 'Roboto', sans-serif;
 }
+h1 {
+    margin-bottom: 30px;
+}
 /* --------------------  BREADCRUMB -------------------- */
 /* --------------------             -------------------- */
 .breadcrumb {
@@ -130,3 +133,12 @@ td .glyphicon:hover {
 }
 /* --------------------     INDEX SITE    -------------------- */
 /* --------------------                   -------------------- */
+
+/* --------------------      SORTABLE     -------------------- */
+/* --------------------       INPUT       -------------------- */
+#acceptedRoomTypes {
+    display: none;
+}
+#acceptedRoomTypes-sortable {
+    min-height: 40px;
+}

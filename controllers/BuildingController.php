@@ -2,12 +2,15 @@
 
 namespace app\controllers;
 
-use Yii;
+use app\components\web\Controller;
 use app\models\Building\Building;
 use app\models\Building\BuildingSearch;
-use app\components\web\Controller;
-use yii\web\NotFoundHttpException;
+use app\models\Forms\RoomTypesBuildingForm;
+use app\models\RoomType\RoomType;
+use app\models\RoomTypeBuilding\RoomTypeBuilding;
+use Yii;
 use yii\filters\VerbFilter;
+use yii\web\NotFoundHttpException;
 
 /**
  * BuildingController implements the CRUD actions for Building model.
@@ -137,10 +140,32 @@ class BuildingController extends Controller
     }
     
     /**
-     * 
+     * @return mixed
      */
     public function actionRelations($id)
     {
-        var_dump('dupsko');die;
+        $model = $this->findModel($id);
+        
+        $roomTypesBuildingForm = new RoomTypesBuildingForm();
+       
+        $modelsRoomTypes = RoomType::find()->andWhere(['status' => 1])->all();
+        $sortableData = RoomType::generateOrderRoomTypes($modelsRoomTypes);
+        
+        if ($roomTypesBuildingForm->load(Yii::$app->request->post())) {
+            if ($roomTypesBuildingForm->saveBuildingRoomType($model->id)) {
+                $this->success(Yii::t('flash', 'room_type_building.save_success'));
+            } else {
+                $this->error(Yii::t('flash', 'room_type_building.save_error'));
+            }
+            return $this->redirect(['index']);
+        } 
+        
+        return $this->render('relations', [
+            'model' => $model,
+            'roomTypesBuildingForm' => $roomTypesBuildingForm,
+            'sortableData' => $sortableData,
+        ]);
     }
+    
+   
 }

@@ -2,7 +2,12 @@
 
 namespace app\models\RoomTypeBuilding;
 
+use app\models\Building\Building;
+use app\models\RoomType\RoomType;
 use Yii;
+use yii\behaviors\TimestampBehavior;
+use yii\db\ActiveQuery;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "room_type_building".
@@ -17,7 +22,7 @@ use Yii;
  * @property Building $building
  * @property RoomType $roomType
  */
-class RoomTypeBuilding extends \yii\db\ActiveRecord
+class RoomTypeBuilding extends ActiveRecord
 {
     /**
      * @inheritdoc
@@ -45,7 +50,7 @@ class RoomTypeBuilding extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['building_id', 'room_type_id'], 'required'],
+            ['room_type_id', 'required'],
             [['building_id', 'room_type_id', 'status', 'created_at', 'updated_at'], 'integer'],
             [['building_id'], 'exist', 'skipOnError' => true, 'targetClass' => Building::className(), 'targetAttribute' => ['building_id' => 'id']],
             [['room_type_id'], 'exist', 'skipOnError' => true, 'targetClass' => RoomType::className(), 'targetAttribute' => ['room_type_id' => 'id']],
@@ -68,7 +73,7 @@ class RoomTypeBuilding extends \yii\db\ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getBuilding()
     {
@@ -76,7 +81,7 @@ class RoomTypeBuilding extends \yii\db\ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getRoomType()
     {
