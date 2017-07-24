@@ -30,6 +30,18 @@ class RoomTypeBuilding extends \yii\db\ActiveRecord
     /**
      * @inheritdoc
      */
+    public function behaviors()
+    {
+        return [
+            [
+                'class' => TimestampBehavior::className(),
+            ],
+        ];
+    }
+    
+    /**
+     * @inheritdoc
+     */
     public function rules()
     {
         return [

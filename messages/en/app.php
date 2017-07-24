@@ -20,6 +20,7 @@ return [
     'academic_title.updated_at' => 'Updated at',
     'building.building' => 'Building',
     'building.buildings' => 'Buildings',
+    'building.gv_button_relations' => 'Relations with room types',
     'building.building_create' => 'Create Building',
     'building.building_update' => 'Update Building',
     'building.id' => 'ID',

@@ -1,7 +1,8 @@
 <?php
 
-use yii\helpers\Html;
 use yii\grid\GridView;
+use yii\helpers\Html;
+use yii\helpers\Url;
 use yii\widgets\Pjax;
 
 $this->title = Yii::t('app', 'building.buildings');
@@ -25,12 +26,11 @@ $this->params['breadcrumbs'][] = $this->title;
             'street_number',
             'city',
             'postcode',
-            // 'description:ntext',
-            // 'status',
-            // 'created_at',
-            // 'updated_at',
-
-            ['class' => 'yii\grid\ActionColumn'],
+           
+            [
+                'class' => 'yii\grid\ActionColumn',
+                'template'=> '{view}',  
+            ],
         ],
     ]); ?>
 <?php Pjax::end(); ?></div>

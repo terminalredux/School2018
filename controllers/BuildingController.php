@@ -135,4 +135,12 @@ class BuildingController extends Controller
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
+    
+    /**
+     * 
+     */
+    public function actionRelations($id)
+    {
+        var_dump('dupsko');die;
+    }
 }
