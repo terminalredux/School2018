@@ -22,4 +22,10 @@ return [
     'room_type.update_success' => 'Room type has been updated',
     'room_type.delete_error' => 'Error while deleting Room type',
     'room_type.delete_success' => 'Room type has been removed',
+    'building.save_success' => 'Building has been created',
+    'building.save_error' => 'Error while saving Building',
+    'building.update_error' => 'Error while updating Building',
+    'building.update_success' => 'Building has been updated',
+    'building.delete_error' => 'Error while deleting Building',
+    'building.delete_success' => 'Building has been removed',
 ];

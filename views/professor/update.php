@@ -1,7 +1,5 @@
 <?php
 
-use yii\helpers\Html;
-
 $this->title = Yii::t('app', 'Update {modelClass}: ', [
     'modelClass' => 'Professor',
 ]) . $model->id;
