@@ -77,24 +77,35 @@ class RoomType extends ActiveRecord
         return new RoomTypeQuery(get_called_class());
     }
     
+    /**
+     * @return ActiveQuery
+     */
+    public function getRoomTypeBuildings()
+    {
+        return $this->hasMany(RoomTypeBuilding::className(), ['room_type_id' => 'id']);
+    }
+    
+    /**
+     * Returns sortable list of room types 
+     * without already assigned types to building 
+     * @return array
+     */
     public function generateOrderRoomTypes($buildingId)
     {
-        $roomTypeIDs = [];
+       $modelsRoomType = RoomType::find()->andWhere(['status' => 1])->all(); 
+       $tempArr1 = [];
+       foreach ($modelsRoomType as $model) {
+           array_push($tempArr1, $model->id);
+       }
        
-        $roomTypesBuilding = RoomTypeBuilding::find()->andWhere(['building_id' => $buildingId])->all();
-        if ($roomTypesBuilding) {
-            foreach ($roomTypesBuilding as $roomTypeBuilding) {
-                array_push($roomTypeIDs, $roomTypeBuilding->room_type_id);
-            }
-        }
-        //var_dump($roomTypeIDs);die;
-        
-        return ArrayHelper::map(RoomType::find()
-                ->andWhere(['status' => 1])
-                ->andWhere(['<>','id', $roomTypeIDs])
-                ->all(), 'id', 'sortableRoomTypes');
-        
-        //return ArrayHelper::map($models, 'id', 'sortableRoomTypes');
+       $modelsRoomTypeBuilding = RoomTypeBuilding::find()->andWhere(['status' => 1])->andWhere(['building_id' => $buildingId])->all();
+       $tempArr2 = [];
+       foreach ($modelsRoomTypeBuilding as $model) {
+           array_push($tempArr2, $model->room_type_id);
+       }
+       $result = array_diff($tempArr1, $tempArr2);
+       
+       return ArrayHelper::map(RoomType::find()->andWhere(['status' => 1])->andWhere(['id' => $result])->all(), 'id', 'sortableRoomTypes');
     }
     
     public function getSortableRoomTypes()

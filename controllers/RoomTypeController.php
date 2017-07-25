@@ -88,12 +88,15 @@ class RoomTypeController extends Controller
      */
     public function actionDelete($id)
     {
-        
-        if ($this->findModel($id)->delete()) {
-               $this->success(Yii::t('flash', 'room_type.delete_success')); 
-            } else {
-               $this->error(Yii::t('flash', 'room_type.delete_error')); 
-            }
+        if ($this->findModel($id)->roomTypeBuildings) { 
+            $this->error(Yii::t('flash', 'room_type.delete_has_relations'));
+        } else {
+            if ($this->findModel($id)->delete()) {
+                   $this->success(Yii::t('flash', 'room_type.delete_success')); 
+                } else {
+                   $this->error(Yii::t('flash', 'room_type.delete_error')); 
+                }
+        }
         return $this->redirect(['index']);
     }
 

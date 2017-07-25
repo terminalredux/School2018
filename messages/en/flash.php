@@ -23,6 +23,7 @@ return [
     'room_type.delete_error' => 'Error while deleting Room type',
     'room_type.delete_success' => 'Room type has been removed',
     'room_type_building.save_success' => 'Room types has been assigned to the building',
+    'room_type.delete_has_relations' => 'This Room Type has been used in Room Types & Building relations and can not be removed.',
     'room_type_building.save_error' => 'Problem was ocured while the assign roome types to the building',
     'building.save_success' => 'Building has been created',
     'building.save_error' => 'Error while saving Building',

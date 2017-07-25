@@ -38,7 +38,7 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'building.gv_button_r
         <div class="col-md-4">
             <h5><?= Yii::t('app', 'room_type.all_room_types') ?>:</h5>
             <?= 
-                SortableInput::widget([
+            $formAll->field($roomTypesBuildingForm, 'allRoomTypes')->widget(SortableInput::className(), [
                     'name'=> 'allRomeTypes',
                     'items' => $sortableData,
                     'hideInput' => true,
@@ -46,7 +46,7 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'building.gv_button_r
                         'itemOptions'=>['class'=>'alert alert-info'],
                         'connected'=>true,
                     ],
-                ]);
+                ])->label(false);
             ?>
         </div>
     </div>

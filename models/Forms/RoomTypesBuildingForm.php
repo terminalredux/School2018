@@ -8,6 +8,7 @@ use app\models\RoomTypeBuilding\RoomTypeBuilding;
 class RoomTypesBuildingForm extends RoomType
 {
     public $acceptedRomeTypes;
+    public $allRoomTypes;
     
     /**
      * @inheritdoc
@@ -26,7 +27,7 @@ class RoomTypesBuildingForm extends RoomType
     {
         return array_merge(parent::rules(), [
             //[['orderItem'], 'required', 'on' => self::SCENARIO_ORDER],
-            ['acceptedRomeTypes', 'safe']
+            [['acceptedRomeTypes', 'allRoomTypes'], 'safe']
         ]);
     }
     
@@ -39,10 +40,24 @@ class RoomTypesBuildingForm extends RoomType
         $successSave = true;
         $successDelete = true;
         $roomTypeIDs = explode(',', $this->acceptedRomeTypes);
-       
+        $toomTypesIDsToChoose = explode(',', $this->allRoomTypes);
+      
+        $temp = array_merge($roomTypeIDs, $toomTypesIDsToChoose);
+        $duplicates = [];
+        foreach(array_count_values($temp) as $val => $c) {
+            if($c > 1) {
+                $duplicates[] = $val;
+            }
+        }
+        
+        if (!empty($duplicates)) { // JEŚLI JEST DUPLIKAT W DWOCH SORTABLE
+           $results =  $roomTypeIDs; 
+        } else {
+            $results =  $roomTypeIDs;
+        }
+        
         //delete previous
         $roomTypeBuildings = RoomTypeBuilding::find()->andWhere(['building_id' => $buildingId])->all();
-        //var_dump($roomTypeBuildings);die;
         if ($roomTypeBuildings) {
             foreach ($roomTypeBuildings as $roomTypeBuilding) {
                 if(!$roomTypeBuilding->delete()){
@@ -52,8 +67,8 @@ class RoomTypesBuildingForm extends RoomType
         } 
         
         //saves all sortable list
-        if ($roomTypeIDs[0] != "") {
-            foreach ($roomTypeIDs as $room_type_id) {
+        if (!empty($results[0])) {
+            foreach ($results as $room_type_id) {
                 $roomTypeBuilding = new RoomTypeBuilding();
                 $roomTypeBuilding->building_id = $buildingId;
                 $roomTypeBuilding->room_type_id = $room_type_id;
