@@ -25,9 +25,10 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'building.gv_button_r
             <h5><?= Yii::t('app', 'room_type.accepted_room_types') ?>:</h5>
             <?=
             $formAll->field($roomTypesBuildingForm, 'acceptedRomeTypes')->widget(SortableInput::classname(), [
-                'items' => [],
+                'items' => $assignedRoomTypes,
                 'hideInput' => false,
                 'sortableOptions' => [
+                    'itemOptions'=>['class'=>'alert alert-info'],
                     'connected'=>true,
                 ],
                 'options' => ['class' => 'form-control', 'readonly' => true, 'id' => 'acceptedRoomTypes']

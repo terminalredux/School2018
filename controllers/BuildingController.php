@@ -149,8 +149,9 @@ class BuildingController extends Controller
         $roomTypesBuildingForm = new RoomTypesBuildingForm();
        
         $modelsRoomTypes = RoomType::find()->andWhere(['status' => 1])->all();
-        $sortableData = RoomType::generateOrderRoomTypes($modelsRoomTypes);
-        
+        $assignedRoomTypes = RoomType::assignedRoomTypes($id);
+        $sortableData = RoomType::generateOrderRoomTypes($id);
+       
         if ($roomTypesBuildingForm->load(Yii::$app->request->post())) {
             if ($roomTypesBuildingForm->saveBuildingRoomType($model->id)) {
                 $this->success(Yii::t('flash', 'room_type_building.save_success'));
@@ -164,6 +165,7 @@ class BuildingController extends Controller
             'model' => $model,
             'roomTypesBuildingForm' => $roomTypesBuildingForm,
             'sortableData' => $sortableData,
+            'assignedRoomTypes' => $assignedRoomTypes,
         ]);
     }
     

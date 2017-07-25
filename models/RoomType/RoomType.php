@@ -2,6 +2,7 @@
 
 namespace app\models\RoomType;
 
+use app\models\RoomTypeBuilding\RoomTypeBuilding;
 use Yii;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
@@ -76,13 +77,51 @@ class RoomType extends ActiveRecord
         return new RoomTypeQuery(get_called_class());
     }
     
-    public function generateOrderRoomTypes($models)
+    public function generateOrderRoomTypes($buildingId)
     {
-        return ArrayHelper::map($models, 'id', 'sortableRoomTypes');
+        $roomTypeIDs = [];
+       
+        $roomTypesBuilding = RoomTypeBuilding::find()->andWhere(['building_id' => $buildingId])->all();
+        if ($roomTypesBuilding) {
+            foreach ($roomTypesBuilding as $roomTypeBuilding) {
+                array_push($roomTypeIDs, $roomTypeBuilding->room_type_id);
+            }
+        }
+        //var_dump($roomTypeIDs);die;
+        
+        return ArrayHelper::map(RoomType::find()
+                ->andWhere(['status' => 1])
+                ->andWhere(['<>','id', $roomTypeIDs])
+                ->all(), 'id', 'sortableRoomTypes');
+        
+        //return ArrayHelper::map($models, 'id', 'sortableRoomTypes');
     }
     
     public function getSortableRoomTypes()
     {
         return ['content' => $this->type];
+    }
+    
+    /**
+     * Gets already assigned room types to
+     * the specific Building
+     * @return array
+     */
+    public function assignedRoomTypes($buildingId)
+    {
+        $roomTypeIDs = [];
+        $roomTypes = [];
+        $roomTypesBuilding = RoomTypeBuilding::find()->andWhere(['building_id' => $buildingId])->all();
+        if ($roomTypesBuilding) {
+            foreach ($roomTypesBuilding as $roomTypeBuilding) {
+                array_push($roomTypeIDs, $roomTypeBuilding->room_type_id);
+            }
+        }
+        
+        if (count($roomTypeIDs)) {
+            $roomTypes = ArrayHelper::map(RoomType::find()->andWhere(['id' => $roomTypeIDs])->all(), 'id', 'sortableRoomTypes');
+        }
+        
+        return $roomTypes;
     }
 }

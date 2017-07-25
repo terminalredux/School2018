@@ -22,21 +22,20 @@ $this->params['breadcrumbs'][] = $this->title;
         ]) ?>
         <?= Html::a(Yii::t('app', 'building.gv_button_relations'), ['relations', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
     </p>
-
-    <?= DetailView::widget([
-        'model' => $model,
-        'attributes' => [
-            'id',
-            'name',
-            'street',
-            'street_number',
-            'city',
-            'postcode',
-            'description:ntext',
-            'status',
-            'created_at',
-            'updated_at',
-        ],
-    ]) ?>
-
+    <div class="row">
+        <div class="col-md-4">
+            <h5><strong><?= Yii::t('app', 'building.address') ?>:</strong></h5>
+            <p><?= $model->city . ' ' . $model->postcode ?></p>
+            <p><?= $model->street . ' ' . $model->street_number ?></p>
+        </div>
+        <?php if ($model->description != ""): ?>
+        <div class="col-md-4">
+            <p><strong><?= Yii::t('app', 'building.description') ?>:</strong></p>
+            <p><?= $model->description ?></p>
+        </div>
+        <?php endif; ?>
+        <div class="col-md-4">
+            
+        </div>
+    </div>
 </div>
