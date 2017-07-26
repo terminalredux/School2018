@@ -138,35 +138,4 @@ class BuildingController extends Controller
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
-    
-    /**
-     * @return mixed
-     */
-    public function actionRelations($id)
-    {
-        $model = $this->findModel($id);
-        $roomTypesBuildingForm = new RoomTypesBuildingForm();
-       
-        $assignedRoomTypes = RoomType::assignedRoomTypes($id);
-        $sortableData = RoomType::generateOrderRoomTypes($id);
-       
-        if ($roomTypesBuildingForm->load(Yii::$app->request->post())) {
-            
-            if ($roomTypesBuildingForm->saveBuildingRoomType($model->id)) {
-                $this->success(Yii::t('flash', 'room_type_building.save_success'));
-            } else {
-                $this->error(Yii::t('flash', 'room_type_building.save_error'));
-            }
-            return $this->render('view', ['model' => $model]);
-        } 
-        
-        return $this->render('relations', [
-            'model' => $model,
-            'roomTypesBuildingForm' => $roomTypesBuildingForm,
-            'sortableData' => $sortableData,
-            'assignedRoomTypes' => $assignedRoomTypes,
-        ]);
-    }
-    
-   
 }

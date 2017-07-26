@@ -19,6 +19,7 @@
         "yiisoft/yii2-bootstrap": "~2.0.0",
         "yiisoft/yii2-swiftmailer": "~2.0.0",
         "kartik-v/yii2-sortable-input": "*",
+        "kartik-v/yii2-sortable": "*",
         "bower-asset/font-awesome": "*"
     },
     "require-dev": {
