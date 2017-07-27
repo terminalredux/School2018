@@ -2,8 +2,10 @@
 
 namespace app\models\Building;
 
+use app\models\RoomTypeBuilding\RoomTypeBuilding;
 use Yii;
 use yii\behaviors\TimestampBehavior;
+use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 
 /**
@@ -77,6 +79,15 @@ class Building extends ActiveRecord
         ];
     }
 
+    /**
+     * @return ActiveQuery
+     */
+    public function getRoomTypeBuildings()
+    {
+        return $this->hasMany(RoomTypeBuilding::className(), ['building_id' => 'id']);
+    }
+    
+    
     /**
      * @inheritdoc
      * @return BuildingQuery the active query used by this AR class.

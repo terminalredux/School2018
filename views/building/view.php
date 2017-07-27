@@ -13,14 +13,15 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <p>
         <?= Html::a(Yii::t('app', 'system.update'), ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a(Yii::t('app', 'building.gv_button_relations'), ['relations', 'buildingId' => $model->id], ['class' => 'btn btn-primary']) ?>
         <?= Html::a(Yii::t('app', 'system.delete'), ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
+            'style' => 'float: right;',
             'data' => [
                 'confirm' => Yii::t('app', 'system.confirm'),
                 'method' => 'post',
             ],
         ]) ?>
-        <?= Html::a(Yii::t('app', 'building.gv_button_relations'), ['relations', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
     </p>
     <div class="row">
         <div class="col-md-4">

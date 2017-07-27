@@ -2,12 +2,14 @@
 
 namespace app\models\RoomTypeBuilding;
 
+use yii\db\ActiveQuery;
+
 /**
  * This is the ActiveQuery class for [[RoomTypeBuilding]].
  *
  * @see RoomTypeBuilding
  */
-class RoomTypeBuildingQuery extends \yii\db\ActiveQuery
+class RoomTypeBuildingQuery extends ActiveQuery
 {
     /*public function active()
     {

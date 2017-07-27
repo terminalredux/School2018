@@ -5,6 +5,7 @@ namespace app\models\RoomType;
 use app\models\RoomTypeBuilding\RoomTypeBuilding;
 use Yii;
 use yii\behaviors\TimestampBehavior;
+use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 use yii\helpers\ArrayHelper;
 
@@ -83,5 +84,31 @@ class RoomType extends ActiveRecord
     public function getRoomTypeBuildings()
     {
         return $this->hasMany(RoomTypeBuilding::className(), ['room_type_id' => 'id']);
+    }
+    
+    /**
+     * Gets array of RomeType model
+     * already not used in specific Building 
+     * @return array
+     */
+    public function getUnassignedRoomTypes($buildingId)
+    {
+        $assignedRoomTypes = [];
+        
+        $modelsRoomTypeBuilding = RoomTypeBuilding::find()->andWhere(['status' => 1])->andWhere(['building_id' => $buildingId])->all();
+        foreach ($modelsRoomTypeBuilding as $model) {
+            array_push($assignedRoomTypes, $model->room_type_id);
+        }
+        
+        $allRoomTypes = [];
+        $modelsAllRoomTypes = RoomType::find()->andWhere(['status' => 1])->all();
+        foreach ($modelsAllRoomTypes as $model) {
+           array_push($allRoomTypes, $model->id);
+        }
+        
+        $result = array_diff($allRoomTypes, $assignedRoomTypes);
+        $models = RoomType::find()->andWhere(['status' => 1])->andWhere(['id' => $result])->all();
+        
+        return ArrayHelper::map($models, 'id', 'type');
     }
 }

@@ -113,13 +113,15 @@ class BuildingController extends Controller
      */
     public function actionDelete($id)
     {
-        if ($this->findModel($id)->delete()) {
-            $this->success(Yii::t('flash', 'building.delete_success'));
+        if ($this->findModel($id)->roomTypeBuildings) { 
+            $this->error(Yii::t('flash', 'building.delete_has_relations'));
         } else {
-            $this->error(Yii::t('flash', 'building.delete_error'));
+            if ($this->findModel($id)->delete()) {
+                $this->success(Yii::t('flash', 'building.delete_success'));
+             } else {
+                $this->error(Yii::t('flash', 'building.delete_error'));
+             }
         }
-        
-
         return $this->redirect(['index']);
     }
 
@@ -137,5 +139,31 @@ class BuildingController extends Controller
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
+    }
+    
+    /**
+     * @param int $buildingId 
+     * @return mixed
+     */
+    public function actionRelations($buildingId)
+    {
+        $buildingModel = $this->findModel($buildingId);
+        $roomTypesBuildingFormModel = new RoomTypesBuildingForm();
+        $roomTypesBuildingModels = RoomTypeBuilding::find()->andWhere(['status' => 1])->andWhere(['building_id' => $buildingModel->id])->all();
+        
+        if ($roomTypesBuildingFormModel->load(Yii::$app->request->post())) {
+            if ($roomTypesBuildingFormModel->addRoomTypeBuilding($buildingId)) {
+                $this->success(Yii::t('flash', 'room_type_building.save_success'));
+            } else {
+                $this->error(Yii::t('flash', 'room_type_building.save_errors'));
+            }
+            return $this->refresh();
+        }
+         
+        return $this->render('relations', [
+            'buildingModel' => $buildingModel,
+            'roomTypesBuildingFormModel' => $roomTypesBuildingFormModel,
+            'roomTypesBuildingModels' => $roomTypesBuildingModels,
+        ]);
     }
 }

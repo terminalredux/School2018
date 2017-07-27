@@ -32,7 +32,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <div class="col-md-6">
             <?= $this->render('_form', [
                 'model' => $model,
-                'title' => Yii::t('app', 'academic_title.create_academic_title'),
+                'title' => Yii::t('app', 'room_type_building.create_room_type'),
             ]) ?>
         </div>
     </div>
