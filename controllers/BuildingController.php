@@ -166,4 +166,17 @@ class BuildingController extends Controller
             'roomTypesBuildingModels' => $roomTypesBuildingModels,
         ]);
     }
+    
+    /**
+     * @return mixed
+     */
+    public function actionDeleteRoomTypeBuilding($id, $buildingId)
+    {
+        if (RoomTypeBuilding::deleteRelation($id)) {
+            $this->success(Yii::t('flash', 'room_type_building.delete_success'));
+        } else {
+            $this->error(Yii::t('flash', 'room_type_building.delete_error'));
+        }
+        return $this->redirect(['relations', 'buildingId' => $buildingId]);
+    }
 }

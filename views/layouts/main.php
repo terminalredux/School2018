@@ -44,7 +44,6 @@ AppAsset::register($this);
         'items' => [
             ['label' => Yii::t('app', 'navbar.infrastructure'), 'items' => [
                 ['label' => Yii::t('app', 'navbar.building'), 'url' => ['/building/index']],
-                ['label' => Yii::t('app', 'navbar.room_type'), 'url' => ['/room-type/index']],
             ]],
             ['label' => Yii::t('app', 'navbar.academic_title'), 'url' => ['/academic-title/index']],
             ['label' => Yii::t('app', 'navbar.professor'), 'url' => ['/professor/index']],

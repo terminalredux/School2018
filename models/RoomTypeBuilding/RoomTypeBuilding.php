@@ -96,4 +96,10 @@ class RoomTypeBuilding extends ActiveRecord
     {
         return new RoomTypeBuildingQuery(get_called_class());
     }
+    
+    public function deleteRelation($id) 
+    {
+        $model = RoomTypeBuilding::find()->andWhere(['id' => $id])->limit(1)->one();
+        return $model->delete();
+    }
 }

@@ -25,6 +25,14 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'building.gv_button_r
         <div class="panel panel-default">
             <div class="panel-body">
                 <?= $model->roomType->type ?>
+                <?= Html::a(Yii::t('app', 'system.delete'), ['delete-room-type-building', 'id' => $model->id, 'buildingId' => $buildingModel->id], [
+                    'class' => 'btn btn-danger',
+                    'style' => 'float: right;',
+                    'data' => [
+                        'confirm' => Yii::t('app', 'system.confirm'),
+                        'method' => 'post',
+                    ],
+                ]) ?>
             </div>
         </div>
     <?php endforeach; ?>
