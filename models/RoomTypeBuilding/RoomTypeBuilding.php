@@ -8,6 +8,7 @@ use Yii;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "room_type_building".
@@ -101,5 +102,21 @@ class RoomTypeBuilding extends ActiveRecord
     {
         $model = RoomTypeBuilding::find()->andWhere(['id' => $id])->limit(1)->one();
         return $model->delete();
+    }
+    
+    /**
+     * Gets all RoomTypeBuilding models of
+     * a specific Building
+     * @return array
+     */
+    public static function getAllRoomTypeBuilding($buildingId) 
+    {
+        $models = RoomTypeBuilding::find()->andWhere(['status' => 1])->andWhere(['building_id' => $buildingId])->all();
+        return ArrayHelper::map($models, 'id', 'roomTypeName');
+    }
+    
+    public function getRoomTypeName()
+    {
+        return $this->roomType->type;
     }
 }

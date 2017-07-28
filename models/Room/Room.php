@@ -2,7 +2,11 @@
 
 namespace app\models\Room;
 
+use app\models\RoomTypeBuilding\RoomTypeBuilding;
 use Yii;
+use yii\behaviors\TimestampBehavior;
+use yii\db\ActiveQuery;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "room".
@@ -17,7 +21,7 @@ use Yii;
  *
  * @property RoomTypeBuilding $roomTypeBuilding
  */
-class Room extends \yii\db\ActiveRecord
+class Room extends ActiveRecord
 {
     /**
      * @inheritdoc
@@ -25,6 +29,18 @@ class Room extends \yii\db\ActiveRecord
     public static function tableName()
     {
         return 'room';
+    }
+    
+    /**
+     * @inheritdoc
+     */
+    public function behaviors()
+    {
+        return [
+            [
+                'class' => TimestampBehavior::className(),
+            ],
+        ];
     }
 
     /**
@@ -58,7 +74,7 @@ class Room extends \yii\db\ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getRoomTypeBuilding()
     {

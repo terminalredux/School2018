@@ -14,6 +14,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <p>
         <?= Html::a(Yii::t('app', 'system.update'), ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
         <?= Html::a(Yii::t('app', 'building.gv_button_relations'), ['relations', 'buildingId' => $model->id], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a(Yii::t('app', 'room.rooms'), ['/room/index', 'buildingId' => $model->id], ['class' => 'btn btn-primary']) ?>
         <?= Html::a(Yii::t('app', 'system.delete'), ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
             'style' => 'float: right;',
