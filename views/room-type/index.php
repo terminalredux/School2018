@@ -5,6 +5,7 @@ use yii\grid\GridView;
 use yii\widgets\Pjax;
 
 $this->title = Yii::t('app', 'room_type.room_types');
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'building.buildings'), 'url' => ['building/index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="room-type-index">

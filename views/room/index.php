@@ -1,13 +1,13 @@
 <?php
 
-use yii\helpers\Html;
+use app\models\Building\Building;
 use yii\grid\GridView;
+use yii\helpers\Html;
 use yii\widgets\Pjax;
-/* @var $this yii\web\View */
-/* @var $searchModel app\models\Room\RoomSearch */
-/* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = Yii::t('app', 'Rooms');
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'building.buildings'), 'url' => ['building/index']];
+$this->params['breadcrumbs'][] = ['label' => Building::find()->andWhere(['id' => $buildingId])->limit(1)->one()->name, 'url' => ['building/view', 'id' => $buildingId]];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
