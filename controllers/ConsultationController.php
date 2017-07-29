@@ -2,12 +2,14 @@
 
 namespace app\controllers;
 
-use Yii;
+use app\components\web\Controller;
 use app\models\Consultation\Consultation;
 use app\models\Consultation\ConsultationSearch;
-use app\components\web\Controller;
-use yii\web\NotFoundHttpException;
+use app\models\Forms\ConsultationForm;
+use app\models\Professor\Professor;
+use Yii;
 use yii\filters\VerbFilter;
+use yii\web\NotFoundHttpException;
 
 /**
  * ConsultationController implements the CRUD actions for Consultation model.
@@ -120,5 +122,20 @@ class ConsultationController extends Controller
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
+    }
+    
+    /**
+     * @param int professorId
+     * @return mixed
+     */
+    public function actionProfessorConsultation($professorId)
+    {
+        $modelProfessor = Professor::find()->andWhere(['status' => 1])->andWhere(['id' => $professorId])->limit(1)->one();
+        $modelConsultationForm = new ConsultationForm();
+        
+        return $this->render('professor-consultation', [
+            'modelProfessor' => $modelProfessor,
+            'model' => $modelConsultationForm,
+        ]);
     }
 }

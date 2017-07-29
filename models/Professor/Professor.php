@@ -113,4 +113,22 @@ class Professor extends ActiveRecord
         return ArrayHelper::map(AcademicTitle::find()->orderBy(['order' => 'asc'])->all(), 'short', 'short');
     }
     
+    /**
+     * Professor full name without academic title
+     * @return string
+     */
+    public function getFullname()
+    {
+        return $this->firstname . ' ' . $this->lastname;
+    }
+    
+    /**
+     * Professor full name with academic title
+     * @return string
+     */
+    public function getFullnameTitle()
+    {
+        return $this->academicTitle->short . ' ' . $this->firstname . ' ' . $this->lastname;
+    }
+     
 }

@@ -1,7 +1,6 @@
 <?php
 
 use yii\helpers\Html;
-use yii\widgets\DetailView;
 
 $this->title = $model->firstname . ' ' . $model->lastname;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'professor.professors'), 'url' => ['index']];
@@ -13,6 +12,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <p>
         <?= Html::a(Yii::t('app', 'system.update'), ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a(Yii::t('app', 'consultation.consultations'), ['/consultation/professor-consultation', 'professorId' => $model->id], ['class' => 'btn btn-primary']) ?>
         <?= Html::a(Yii::t('app', 'system.delete'), ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
             'style' => 'float: right;',
