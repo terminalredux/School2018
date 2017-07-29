@@ -15,28 +15,30 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= Html::a(Yii::t('app', 'system.update'), ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
         <?= Html::a(Yii::t('app', 'system.delete'), ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
+            'style' => 'float: right;',
             'data' => [
                 'confirm' => Yii::t('app', 'system.confirm'),
                 'method' => 'post',
             ],
         ]) ?>
     </p>
+    <br>
+    <div class="col-md-2">
+        <p><?= Yii::t('app', 'professor.fullname') ?>:</p>   
+        <p><?= Yii::t('app', 'professor.email') ?>:</p>  
+        <p><?= Yii::t('app', 'professor.website') ?>:</p>   
+    </div>
+    <div class="col-md-4"> 
+        <p>
+            <strong>
+            <?= ' ' . $model->academicTitle->short . ' ' ?>    
+            <?= $model->firstname  . ' ' . ($model->middlename ? $model->middlename . ' ' : '') . $model->lastname ?>
+            </strong>
+        </p>  
+        <p><?= $model->email ? $model->email : Yii::t('app', 'system.not_set') ?></p>  
+        <p><?= $model->website ? $model->website : Yii::t('app', 'system.not_set') ?></p>  
+    </div>
 
-    <?= DetailView::widget([
-        'model' => $model,
-        'attributes' => [
-            'id',
-            'academic_title_id',
-            'firstname',
-            'middlename',
-            'lastname',
-            'gender',
-            'website',
-            'email:email',
-            'status',
-            'created_at',
-            'updated_at',
-        ],
-    ]) ?>
+  
 
 </div>

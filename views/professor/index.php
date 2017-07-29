@@ -29,15 +29,13 @@ $this->params['breadcrumbs'][] = $this->title;
                 }
             ],
             'firstname',
-            'middlename',
             'lastname',
-            // 'gender',
             'email:email',
-            // 'status',
-            // 'created_at',
-            // 'updated_at',
-
-            ['class' => 'yii\grid\ActionColumn'],
+         
+            [
+                'class' => 'yii\grid\ActionColumn',
+                'template' => '{view}',
+            ],
         ],
     ]); ?>
 <?php Pjax::end(); ?></div>
