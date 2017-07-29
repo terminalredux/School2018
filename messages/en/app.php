@@ -34,6 +34,8 @@ return [
     'building.status' => 'Status',
     'building.created_at' => 'Created At',
     'building.updated_at' => 'Updated at',
+    'consultation.consultation' => 'Consultation',
+    'consultation.consultations' => 'Consultations',
     'professor.id' => 'id',
     'professor.academic_title_id' => 'Academic title',
     'professor.firstname' => 'First name',

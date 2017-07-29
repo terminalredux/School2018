@@ -5,7 +5,7 @@ use yii\grid\GridView;
 use yii\helpers\Html;
 use yii\widgets\Pjax;
 
-$this->title = Yii::t('app', 'Rooms');
+$this->title = Yii::t('app', 'room.rooms');
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'building.buildings'), 'url' => ['building/index']];
 $this->params['breadcrumbs'][] = ['label' => Building::find()->andWhere(['id' => $buildingId])->limit(1)->one()->name, 'url' => ['building/view', 'id' => $buildingId]];
 $this->params['breadcrumbs'][] = $this->title;

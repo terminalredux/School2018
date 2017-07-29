@@ -148,6 +148,7 @@ td .glyphicon:hover {
     transition: background 0.2s ease-in-out;
     transition-property: background, color;
     border-radius: 3px;
+    margin-bottom: 10px;
 }
 .main-menu-options:hover {
     background-color: #2ecc71;
@@ -161,6 +162,6 @@ td .glyphicon:hover {
     color: inherit;
 }
 .site-index img {
-    width: 90px;
+    width: 80px;
     margin-top: 10px;
 }
