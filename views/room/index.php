@@ -12,7 +12,7 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 
 
-    <h1><?= Html::encode($this->title) ?></h1>
+<h1><?= Yii::t('app', 'room.rooms_in') . ' ' . Building::getBuilding($buildingId)->name ?></h1>
 <div class="col-md-7">   
 <?php Pjax::begin(); ?>    <?= GridView::widget([
         'dataProvider' => $dataProvider,
@@ -29,7 +29,30 @@ $this->params['breadcrumbs'][] = $this->title;
          
             [
                 'class' => 'yii\grid\ActionColumn',
-                'template'=>'{update} {delete}'
+                'template'=>'{update} {delete}',
+                'buttons' => [
+                'update' => function ($url, $model) {
+                    return Html::a(
+                        'up',
+                        ['update', 'id' => $model->id, 'buildingId' => $model->roomTypeBuilding->building->id] , 
+                        [
+                            'title' => 'Update',
+                            'data-pjax' => '0',
+                        ]
+                    );
+                },
+                'delete' => function ($url, $model) {
+                    return Html::a(
+                        'del',
+                        ['delete', 'id' => $model->id, 'buildingId' => $model->roomTypeBuilding->building->id] , 
+                        [
+                            'title' => 'Delete',
+                            'data-pjax' => '0',
+                            'data' => ['method' => 'post'],
+                        ]
+                    );
+                },
+            ],
             ],
         ],
     ]); ?>
@@ -40,5 +63,6 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= $this->render('_form', [
         'model' => $model,
         'buildingId' => $buildingId,
+        'title' => Yii::t('app', 'room.create_room'),
     ]) ?>
 </div>

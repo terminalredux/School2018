@@ -96,4 +96,10 @@ class Building extends ActiveRecord
     {
         return new BuildingQuery(get_called_class());
     }
+    
+    
+    public static function getBuilding($buildingId) 
+    {
+        return Building::find()->andWhere(['status' => 1])->andWhere(['id' => $buildingId])->limit(1)->one(); 
+    }
 }

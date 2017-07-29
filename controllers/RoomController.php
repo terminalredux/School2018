@@ -39,12 +39,9 @@ class RoomController extends Controller
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
         $model = new Room();
         
-        
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['index', 'buildingId' => $buildingId]);
         } 
-        
-        
         
         return $this->render('index', [
             'model' => $model,
@@ -63,13 +60,18 @@ class RoomController extends Controller
     {
         $model = new Room();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post())) {
+            if ($model->save()) {
+                $this->success(Yii::t('flash', 'room.save_success'));
+            } else {
+                $this->error(Yii::t('flash', 'room.save_error'));
+            }
             return $this->redirect(['view', 'id' => $model->id]);
-        } else {
-            return $this->render('create', [
-                'model' => $model,
-            ]);
-        }
+        } 
+        
+        return $this->render('create', [
+            'model' => $model,
+        ]);  
     }
 
     /**
@@ -78,17 +80,24 @@ class RoomController extends Controller
      * @param integer $id
      * @return mixed
      */
-    public function actionUpdate($id)
+    public function actionUpdate($id, $buildingId)
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        } else {
-            return $this->render('update', [
-                'model' => $model,
-            ]);
-        }
+        if ($model->load(Yii::$app->request->post())) {
+            if ($model->save()) {
+                $this->success(Yii::t('flash', 'room.update_success'));
+            } else {
+                $this->error(Yii::t('flash', 'room.update_error'));
+            }
+            return $this->redirect(['index', 'id' => $model->id, 'buildingId' => $buildingId]);
+        } 
+        
+        return $this->render('update', [
+            'model' => $model,
+            'buildingId' => $buildingId,
+        ]);
+        
     }
 
     /**
@@ -97,11 +106,15 @@ class RoomController extends Controller
      * @param integer $id
      * @return mixed
      */
-    public function actionDelete($id)
+    public function actionDelete($id, $buildingId)
     {
-        $this->findModel($id)->delete();
+        if($this->findModel($id)->delete()) {
+            $this->success(Yii::t('flash', 'room.delete_success'));
+        } else {
+            $this->error(Yii::t('flash', 'room.delete_error'));
+        }
 
-        return $this->redirect(['index']);
+        return $this->redirect(['index', 'buildingId' => $buildingId]);
     }
 
     /**

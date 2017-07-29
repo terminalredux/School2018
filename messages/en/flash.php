@@ -34,4 +34,15 @@ return [
     'building.delete_error' => 'Error while deleting Building',
     'building.delete_success' => 'Building has been removed',
     'building.delete_has_relations' => 'This building has been used in Room Types & Building relations and can not be removed.',
+    
+    'room.save_success' => 'Room has been created',
+    'room.save_error' => 'Error while saving Room',
+    'room.update_error' => 'Error while updating Room',
+    'room.update_success' => 'Room has been updated',
+    'room.delete_error' => 'Error while deleting Room',
+    'room.delete_success' => 'Room has been removed',
+    'room.delete_relations_consultation' => 'This room has been used in some consultation and can not be removed.',
+    'room.delete_relations_exam' => 'This room has been used in some session exam and can not be removed.',
+    'room.delete_relations_course' => 'This room has been used in some course realization and can not be removed.',
+    'room.delete_relations_circle' => 'This room has been used in some scientific circle meeting and can not be removed.',
 ];
