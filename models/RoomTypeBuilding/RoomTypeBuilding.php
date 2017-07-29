@@ -3,6 +3,7 @@
 namespace app\models\RoomTypeBuilding;
 
 use app\models\Building\Building;
+use app\models\Room\Room;
 use app\models\RoomType\RoomType;
 use Yii;
 use yii\behaviors\TimestampBehavior;
@@ -88,6 +89,14 @@ class RoomTypeBuilding extends ActiveRecord
     {
         return $this->hasOne(RoomType::className(), ['id' => 'room_type_id']);
     }
+    
+    /**
+     * @return ActiveQuery
+     */
+    public function getRooms()
+    {
+        return $this->hasMany(Room::className(), ['room_type_building_id' => 'id']);
+    }
 
     /**
      * @inheritdoc
@@ -98,11 +107,26 @@ class RoomTypeBuilding extends ActiveRecord
         return new RoomTypeBuildingQuery(get_called_class());
     }
     
+    /**
+     * Removing a RoomTypeBuilding model that
+     * is a relation between RoomType and Building 
+     * @return bool
+     */
     public function deleteRelation($id) 
     {
         $model = RoomTypeBuilding::find()->andWhere(['id' => $id])->limit(1)->one();
         return $model->delete();
     }
+    
+    /**
+     * @return bool
+     */
+    public function isUsed($id)
+    {
+        $model = RoomTypeBuilding::find()->andWhere(['id' => $id])->limit(1)->one();
+        return $model->rooms;
+    }
+    
     
     /**
      * Gets all RoomTypeBuilding models of
