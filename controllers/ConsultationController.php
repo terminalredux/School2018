@@ -7,6 +7,8 @@ use app\models\Consultation\Consultation;
 use app\models\Consultation\ConsultationSearch;
 use app\models\Forms\ConsultationForm;
 use app\models\Professor\Professor;
+use app\models\Room\Room;
+use app\models\RoomTypeBuilding\RoomTypeBuilding;
 use Yii;
 use yii\filters\VerbFilter;
 use yii\web\NotFoundHttpException;
@@ -133,9 +135,35 @@ class ConsultationController extends Controller
         $modelProfessor = Professor::find()->andWhere(['status' => 1])->andWhere(['id' => $professorId])->limit(1)->one();
         $modelConsultationForm = new ConsultationForm();
         
+        $modelConsultationForm->professor_id = $modelProfessor->id;
+        
+        
         return $this->render('professor-consultation', [
             'modelProfessor' => $modelProfessor,
             'model' => $modelConsultationForm,
         ]);
+    }
+    
+    /**
+     * Action depends on select building 
+     * and populates select rooms list
+     * @return string
+     */
+    public function actionRoomsList($buildingId)
+    {
+        $array = [];
+        $models = RoomTypeBuilding::find()->andWhere(['status' => 1])->andWhere(['building_id' => $buildingId])->all();
+        foreach ($models as $model) {
+            array_push($array, $model->id);
+        }
+        $modelsRoom = Room::find()->andWhere(['status' => 1])->andWhere(['room_type_building_id' => $array])->all();
+        
+        if ($modelsRoom) {
+            foreach ($modelsRoom as $room) {
+                echo '<option value="' . $room->id . '">' . $room->number . ' (' . $room->roomTypeBuilding->roomType->type . ')</option>'; 
+            }
+        } else {
+            echo '<option>' . Yii::t('app', 'room.no_rooms') . '</option>';
+        }
     }
 }

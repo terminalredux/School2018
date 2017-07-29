@@ -22,10 +22,6 @@ $this->title = 'My Yii Application';
             <img src="images/diploma.png">
             <h5><?= Html::a(Yii::t('app', 'academic_title.academic_titles'), ['/academic-title/index']) ?></h5>
         </div>
-        <div class="col-xs-3 text-center main-menu-options">
-            <img src="images/desk.png">
-            <h5><?= Html::a(Yii::t('app', 'consultation.consultations'), ['/consultation/index']) ?></h5>
-        </div>
     </div>
     
     

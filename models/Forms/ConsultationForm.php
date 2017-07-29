@@ -9,7 +9,7 @@ use app\models\Consultation\Consultation;
 class ConsultationForm extends Consultation
 {
     
-    
+    public $building;
     public $date;
     public $time_begin;
     public $time_end;
@@ -31,7 +31,7 @@ class ConsultationForm extends Consultation
     public function rules()
     {
         return array_merge(parent::rules(), [
-            [['date', 'time_begin', 'time_end'], 'safe'],
+            [['building', 'date', 'time_begin', 'time_end'], 'safe'],
         ]);
     }
     

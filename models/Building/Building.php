@@ -7,6 +7,7 @@ use Yii;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "building".
@@ -101,5 +102,10 @@ class Building extends ActiveRecord
     public static function getBuilding($buildingId) 
     {
         return Building::find()->andWhere(['status' => 1])->andWhere(['id' => $buildingId])->limit(1)->one(); 
+    }
+    
+    public static function getBuildingsList()
+    {
+        return ArrayHelper::map(Building::find()->andWhere(['status' => 1])->all(), 'id', 'name');
     }
 }
