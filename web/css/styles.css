@@ -142,3 +142,25 @@ td .glyphicon:hover {
 #acceptedRoomTypes-sortable {
     min-height: 40px;
 }
+/* --------------------      MAIN MENU     -------------------- */
+/* --------------------       OPTION       -------------------- */
+.main-menu-options {
+    transition: background 0.2s ease-in-out;
+    transition-property: background, color;
+    border-radius: 3px;
+}
+.main-menu-options:hover {
+    background-color: #2ecc71;
+    color: #fdfdfd;
+    transition: 0.2s ease-in-out;
+    transition-property: background, color;
+    border-radius: 3px;
+}
+.site-index a {
+    text-decoration: none;
+    color: inherit;
+}
+.site-index img {
+    width: 90px;
+    margin-top: 10px;
+}
