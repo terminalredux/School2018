@@ -71,11 +71,11 @@ class ConsultationController extends Controller
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
-        } else {
-            return $this->render('create', [
-                'model' => $model,
-            ]);
-        }
+        } 
+        
+        return $this->render('create', [
+            'model' => $model,
+        ]);
     }
 
     /**
@@ -90,11 +90,11 @@ class ConsultationController extends Controller
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
-        } else {
-            return $this->render('update', [
-                'model' => $model,
-            ]);
-        }
+        } 
+        
+        return $this->render('update', [
+            'model' => $model,
+        ]);
     }
 
     /**
@@ -133,10 +133,19 @@ class ConsultationController extends Controller
     public function actionProfessorConsultation($professorId)
     {
         $modelProfessor = Professor::find()->andWhere(['status' => 1])->andWhere(['id' => $professorId])->limit(1)->one();
+        
         $modelConsultationForm = new ConsultationForm();
-        
         $modelConsultationForm->professor_id = $modelProfessor->id;
+        $modelConsultationForm->setScenario(ConsultationForm::SCENARIO_CREATE);
         
+        if ($modelConsultationForm->load(Yii::$app->request->post())) {
+            if ($modelConsultationForm->saveConsultation()) {
+                $this->success(Yii::t('flash', 'consultation.save_success'));
+            } else {
+                $this->error(Yii::t('flash', 'consultation.save_error'));
+            }
+            return $this->refresh();
+        } 
         
         return $this->render('professor-consultation', [
             'modelProfessor' => $modelProfessor,

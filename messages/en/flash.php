@@ -10,6 +10,8 @@ return [
     'academic_title.delete_has_relations_prof' => 'Academic title can not be removed. Item is used by some professor',
     'academic_title.order_success' => 'Order of the Academic titles has been updated',
     'academic_title.order_error' => 'Problem occurred after changing order of the academic titles',
+    'consultation.save_success' => 'Consultation has been created',
+    'consultation.save_error' => 'Error while saving consultation',
     'professor.save_success' => 'Professor has been created',
     'professor.save_error' => 'Error while saving Professor',
     'professor.update_error' => 'Error while updating Professor',

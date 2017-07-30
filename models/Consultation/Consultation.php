@@ -28,6 +28,13 @@ use yii\db\ActiveRecord;
  */
 class Consultation extends ActiveRecord
 {
+    const STATUS_ACTIVE = 1;
+    const STATUS_CANCELED = 2;
+    const STATUS_CHANGED_TERM = 3;
+    
+    const STATUS_PUBLIC = 1;
+    const STATUS_NOT_PUBLIC = 0;
+    
     /**
      * @inheritdoc
      */

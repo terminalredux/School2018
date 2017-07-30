@@ -37,6 +37,7 @@ return [
     'building.select_building' => 'Select building',
     'consultation.consultation' => 'Consultation',
     'consultation.consultations' => 'Consultations',
+    'consultation.add_consultation' => 'Add consultation',
     'consultation.id' => 'ID',
     'consultation.professor_id' => 'Professor ID',
     'consultation.room_id' => 'Room ID',

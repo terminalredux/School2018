@@ -8,6 +8,7 @@ use app\models\Consultation\Consultation;
 
 class ConsultationForm extends Consultation
 {
+    const SCENARIO_CREATE = 'create-consultation'; 
     
     public $building;
     public $date;
@@ -21,7 +22,7 @@ class ConsultationForm extends Consultation
     public function scenarios()
     {
         return array_merge(parent::scenarios(), [
-       
+             self::SCENARIO_CREATE => ['date', 'time_begin', 'time_end', 'room_id', 'additional_info'],
         ]);
     }
     
@@ -31,9 +32,24 @@ class ConsultationForm extends Consultation
     public function rules()
     {
         return array_merge(parent::rules(), [
-            [['building', 'date', 'time_begin', 'time_end'], 'safe'],
+            [['date', 'time_begin', 'time_end'], 'required', 'on' => self::SCENARIO_CREATE],
+            [['date', 'time_begin', 'time_end'], 'safe'],
         ]);
     }
     
+    /**
+     * Saving a single consultation date
+     * @return bool
+     */
+    public function saveConsultation() 
+    {
+        $beginStr = $this->date . ' ' . $this->time_begin;
+        $endStr = $this->date . ' ' . $this->time_end;
+        
+        $this->begin = strtotime($beginStr); 
+        $this->end = strtotime($endStr); 
+     
+        return $this->save();
+    }
    
 }
