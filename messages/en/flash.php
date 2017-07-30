@@ -12,6 +12,7 @@ return [
     'academic_title.order_error' => 'Problem occurred after changing order of the academic titles',
     'consultation.save_success' => 'Consultation has been created',
     'consultation.save_error' => 'Error while saving consultation',
+    'consultation.publish_error' => 'Error while changing consultation status to public',
     'professor.save_success' => 'Professor has been created',
     'professor.save_error' => 'Error while saving Professor',
     'professor.update_error' => 'Error while updating Professor',

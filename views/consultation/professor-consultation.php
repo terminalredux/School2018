@@ -58,7 +58,11 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'consultation.consult
                         </div>
                     </div>
                     <div class="col-xs-1">
-                            P
+                        <?php if ($consultation->public): ?>
+                        <i class="fa fa-circle" aria-hidden="true" title="<?= Yii::t('app', 'system.public') ?>"></i>
+                        <?php else: ?>
+                            <?= Html::a('<i class="fa fa-circle-o" aria-hidden="true" title="' . Yii::t('app', 'system.publish') . '"></i>', ['public', 'id' => $consultation->id]) ?>
+                        <?php endif; ?>
                     </div>
                 </div>
             </div>

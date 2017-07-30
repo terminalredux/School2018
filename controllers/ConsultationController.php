@@ -179,4 +179,18 @@ class ConsultationController extends Controller
             echo '<option>' . Yii::t('app', 'room.no_rooms') . '</option>';
         }
     }
+    
+    /**
+     */
+    public function actionPublic($id)
+    {
+        $model = Consultation::find()->andWhere(['status' => 1])->andWhere(['id' => $id])->limit(1)->one();
+        $model->public = Consultation::STATUS_PUBLIC;
+        
+        if (!$model->save()) {
+            $this->error(Yii::t('flash', 'consultation.publish_error'));
+        }
+        
+        return $this->redirect(['professor-consultation', 'professorId' => $model->professor_id]);
+    }
 }

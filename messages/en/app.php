@@ -120,6 +120,7 @@ return [
     'system.delete' => 'Delete',
     'system.confirm' => 'Are you sure you want to delete this item?',
     'system.public' => 'Public',
+    'system.publish' => 'Publish',
     'system.not_public' => 'Not public',
     'system.status' => 'Status',
 ];

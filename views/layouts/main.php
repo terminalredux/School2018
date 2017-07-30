@@ -1,8 +1,5 @@
 <?php
 
-/* @var $this View */
-/* @var $content string */
-
 use app\assets\AppAsset;
 use yii\bootstrap\Alert;
 use yii\bootstrap\Nav;

@@ -99,6 +99,15 @@ h1 {
     padding-bottom: 0px;
     font-size: 0.9em;
 }
+.consultation-result a {
+    text-decoration: none;
+    color: inherit;
+    transition: color 0.1s ease-in-out;
+}
+.consultation-result a:hover {
+    color: #2ecc71;
+    transition: color 0.1s ease-in-out;
+}
 /* --------------------     FLASH    -------------------- */
 /* --------------------              -------------------- */
 .alert {
