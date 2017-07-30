@@ -48,6 +48,9 @@ return [
     'consultation.public' => 'Public',
     'consultation.created_at' => 'Created At',
     'consultation.updated_at' => 'Updated At',
+    'consultation.status_changed_term' => 'Changed term',
+    'consultation.status_active' => 'Active',
+    'consultation.status_cancel' => 'Cancel',
     'professor.id' => 'id',
     'professor.academic_title_id' => 'Academic title',
     'professor.firstname' => 'First name',
@@ -116,4 +119,7 @@ return [
     'system.reset' => 'Reset',
     'system.delete' => 'Delete',
     'system.confirm' => 'Are you sure you want to delete this item?',
+    'system.public' => 'Public',
+    'system.not_public' => 'Not public',
+    'system.status' => 'Status',
 ];

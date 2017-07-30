@@ -138,10 +138,13 @@ class ConsultationController extends Controller
         $modelConsultationForm->professor_id = $modelProfessor->id;
         $modelConsultationForm->setScenario(ConsultationForm::SCENARIO_CREATE);
         
+        $consultations = Consultation::find()->andWhere(['status' => 1])
+                                             ->andWhere(['professor_id' => $modelProfessor->id])
+                                             ->orderBy(['begin' => 'asc'])
+                                             ->all();
+        
         if ($modelConsultationForm->load(Yii::$app->request->post())) {
-            if ($modelConsultationForm->saveConsultation()) {
-                $this->success(Yii::t('flash', 'consultation.save_success'));
-            } else {
+            if (!$modelConsultationForm->saveConsultation()) {
                 $this->error(Yii::t('flash', 'consultation.save_error'));
             }
             return $this->refresh();
@@ -150,6 +153,7 @@ class ConsultationController extends Controller
         return $this->render('professor-consultation', [
             'modelProfessor' => $modelProfessor,
             'model' => $modelConsultationForm,
+            'consultations' => $consultations,
         ]);
     }
     

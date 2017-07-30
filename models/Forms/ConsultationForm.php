@@ -33,7 +33,7 @@ class ConsultationForm extends Consultation
     {
         return array_merge(parent::rules(), [
             [['date', 'time_begin', 'time_end'], 'required', 'on' => self::SCENARIO_CREATE],
-            [['date', 'time_begin', 'time_end'], 'safe'],
+        [['date', 'time_begin', 'time_end'], 'safe'],
         ]);
     }
     

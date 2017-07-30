@@ -1,6 +1,7 @@
 <?php
 
 use app\models\Building\Building;
+use app\models\Consultation\Consultation;
 use kartik\date\DatePicker;
 use kartik\time\TimePicker;
 use yii\helpers\Html;
@@ -35,8 +36,53 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'consultation.consult
 
 ?>
 <h3><?= Yii::t('app', 'consultation.consultations') . ': ' ?><strong><?= $modelProfessor->fullnameTitle ?></strong></h3>
-<div class="col-md-6">
-    
+<br>
+<div class="col-md-6 consultation-result">
+    <?php $i = 1 ?>
+    <?php foreach ($consultations as $consultation): ?>
+        <div class="panel panel-default">
+            <div class="panel-heading consultation-panel-heading">
+                <div class="row">
+                    <div class="" style="cursor: pointer;" data-toggle="collapse" data-target="<?= '#content' . $consultation->id?>">
+                        <div class="col-xs-3">
+                            <?= $i . '. ' ?>
+                        </div>
+                        <div class="col-xs-5 text-center">
+                            <?= Yii::$app->formatter->asDate($consultation->begin, 'dd-MM-yyyy') ?>
+                        </div>
+                        <div class="col-xs-3">
+                            <span style="float: right;">
+                                <?= Yii::$app->formatter->asTime($consultation->begin, 'H:mm') ?>
+                                <?= $consultation->begin ? ' - ' . Yii::$app->formatter->asTime($consultation->end, 'H:mm') : '' ?>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-xs-1">
+                            P
+                    </div>
+                </div>
+            </div>
+            <div class="panel-body consultation-panel-body collapse" id="<?= 'content' . $consultation->id ?>">
+                <div class="row"  style="margin-top: 10px;">
+                    <div class="col-md-6">
+                        <?= $consultation->room->roomTypeBuilding->building->name ?><br>
+                        <?= Yii::t('app', 'room.room') . ': ' .$consultation->room->number ?> 
+                        <?= '(' . $consultation->room->roomTypeBuilding->roomType->type . ')' ?><br>
+                    </div>
+                    <div class="col-md-6">
+                        <div style="float: right;">
+                            <?= Yii::t('app', 'system.status') . ': ' ?>
+                            <?= Consultation::statusList()[$consultation->status] ?><br>
+                            <?= Consultation::publicList()[$consultation->public] ?>
+                        </div>
+                    </div>
+                </div>
+                <div class="row"  style="margin-bottom: 10px;">
+                </div>
+            </div>
+        </div>
+    <?php $i++ ?>
+    <?php endforeach; ?>
 </div>
 <div class="col-md-6">
     <div class="panel panel-default consultation-form">

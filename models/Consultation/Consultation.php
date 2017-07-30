@@ -29,7 +29,7 @@ use yii\db\ActiveRecord;
 class Consultation extends ActiveRecord
 {
     const STATUS_ACTIVE = 1;
-    const STATUS_CANCELED = 2;
+    const STATUS_CANCEL = 2;
     const STATUS_CHANGED_TERM = 3;
     
     const STATUS_PUBLIC = 1;
@@ -111,5 +111,28 @@ class Consultation extends ActiveRecord
     public static function find()
     {
         return new ConsultationQuery(get_called_class());
+    }
+    
+    /**
+     * @return array
+     */
+    public static function publicList()
+    {
+        return [
+            self::STATUS_NOT_PUBLIC => Yii::t('app', 'system.not_public'),
+            self::STATUS_PUBLIC => Yii::t('app', 'system.public'),
+        ];
+    }
+    
+    /**
+     * @return array
+     */
+    public static function statusList()
+    {
+        return [
+            self::STATUS_ACTIVE => Yii::t('app', 'consultation.status_active'),
+            self::STATUS_CHANGED_TERM => Yii::t('app', 'consultation.status_changed_term'),
+            self::STATUS_CANCEL => Yii::t('app', 'consultation.status_cancel'),
+        ];
     }
 }

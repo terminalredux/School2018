@@ -68,7 +68,10 @@ h1 {
 }
 /* --------------------    CONSULTATION   -------------------- */
 /* --------------------       FORM        -------------------- */
-.consultation-form label, strong{
+.consultation-form label {
+    font-size: 0.7em;
+}
+.consultation-form strong {
     font-size: 0.7em;
 }
 .consultation-form tight{
@@ -78,6 +81,23 @@ h1 {
 
 .consultation-form input{
     border-radius: 0 !important; 
+}
+
+.consultation-result .panel {
+    margin-bottom: 5px !important; 
+}
+/* ------------ RESULT LIST ------------*/
+/* ------------             ------------*/
+
+.consultation-panel-heading {
+    padding-top: 2px; 
+    padding-bottom: 2px;
+    font-size: 0.9em;
+}
+.consultation-panel-body {
+    padding-top: 0px; 
+    padding-bottom: 0px;
+    font-size: 0.9em;
 }
 /* --------------------     FLASH    -------------------- */
 /* --------------------              -------------------- */
