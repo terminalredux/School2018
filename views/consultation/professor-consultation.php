@@ -40,8 +40,23 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'consultation.consult
 <div class="col-md-6 consultation-result">
     <?php $i = 1 ?>
     <?php foreach ($consultations as $consultation): ?>
-        <div class="panel panel-default">
-            <div class="panel-heading consultation-panel-heading">
+    <!-- SETS PANEL COLOR DEPENDING ON STATUS -->
+    <?php 
+        if ($consultation->status == Consultation::STATUS_ACTIVE && $consultation->public == Consultation::STATUS_PUBLIC) {
+            $panelclass = 'consultation-active';
+            $headingclass = 'consultation-active-heading';
+        } else if ($consultation->status == Consultation::STATUS_CANCEL && $consultation->public == Consultation::STATUS_PUBLIC) {
+            $panelclass = 'consultation-cancel';
+            $headingclass = 'consultation-cancel-heading';
+        }
+        else {
+            $panelclass = '';
+            $headingclass = '';
+        }
+    ?>
+    <!-- -->
+        <div class="panel panel-default <?= $panelclass ?>">
+            <div class="panel-heading consultation-panel-heading <?= $headingclass ?>">
                 <div class="row">
                     <div class="" style="cursor: pointer;" data-toggle="collapse" data-target="<?= '#content' . $consultation->id?>">
                         <div class="col-xs-3">
@@ -59,9 +74,9 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'consultation.consult
                     </div>
                     <div class="col-xs-1">
                         <?php if ($consultation->public): ?>
-                        <i class="fa fa-circle" aria-hidden="true" title="<?= Yii::t('app', 'system.public') ?>"></i>
+                        <i class="fa fa-eye" aria-hidden="true" title="<?= Yii::t('app', 'system.public') ?>"></i>
                         <?php else: ?>
-                            <?= Html::a('<i class="fa fa-circle-o" aria-hidden="true" title="' . Yii::t('app', 'system.publish') . '"></i>', ['public', 'id' => $consultation->id]) ?>
+                            <?= Html::a('<i class="fa fa-eye-slash" aria-hidden="true" title="' . Yii::t('app', 'system.publish') . '"></i>', ['public', 'id' => $consultation->id]) ?>
                         <?php endif; ?>
                     </div>
                 </div>
@@ -81,7 +96,30 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'consultation.consult
                         </div>
                     </div>
                 </div>
+                <hr>
                 <div class="row"  style="margin-bottom: 10px;">
+                    <div class="col-md-12">
+                    <?= Html::a('<i class="fa fa-times" aria-hidden="true"></i>' . ' ' . Yii::t('app', 'system.delete'), ['delete', 'id' => $consultation->id], [
+                        'data' => [
+                            'confirm' => Yii::t('app', 'system.confirm'),
+                            'method' => 'post',
+                        ],
+                    ]) ?>
+                    <?php if ($consultation->public): ?>    
+                    <?= Html::a('<i class="fa fa-eye-slash" aria-hidden="true"></i>' . ' ' . Yii::t('app', 'system.unpublish'), ['not-public', 'id' => $consultation->id], [
+                        'style' => 'margin-left: 10px;',
+                    ]) ?>  
+                    <?php else: ?>
+                    <?= Html::a('<i class="fa fa-eye" aria-hidden="true"></i>' . ' ' . Yii::t('app', 'system.publish'), ['public', 'id' => $consultation->id], [
+                        'style' => 'margin-left: 10px;',
+                    ]) ?>  
+                    <?php endif; ?>
+                    <?php if ($consultation->status != Consultation::STATUS_CANCEL && $consultation->public == Consultation::STATUS_PUBLIC): ?>
+                    <?= Html::a('<i class="fa fa-minus-circle" aria-hidden="true"></i>' . ' ' . Yii::t('app', 'consultation.status_cancel'), ['cancel', 'id' => $consultation->id], [
+                        'style' => 'margin-left: 10px;',
+                    ]) ?>
+                    <?php endif; ?>  
+                    </div>
                 </div>
             </div>
         </div>

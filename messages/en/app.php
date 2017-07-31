@@ -123,4 +123,5 @@ return [
     'system.publish' => 'Publish',
     'system.not_public' => 'Not public',
     'system.status' => 'Status',
+    'system.unpublish' => 'Unpublish',
 ];

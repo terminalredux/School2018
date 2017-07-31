@@ -13,6 +13,8 @@ return [
     'consultation.save_success' => 'Consultation has been created',
     'consultation.save_error' => 'Error while saving consultation',
     'consultation.publish_error' => 'Error while changing consultation status to public',
+    'consulation.delete_error' => 'Error while deleting consultation',
+    'consultation.cancel_error' => 'Error while canceling consultation',
     'professor.save_success' => 'Professor has been created',
     'professor.save_error' => 'Error while saving Professor',
     'professor.update_error' => 'Error while updating Professor',

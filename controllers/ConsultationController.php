@@ -34,70 +34,6 @@ class ConsultationController extends Controller
     }
 
     /**
-     * Lists all Consultation models.
-     * @return mixed
-     */
-    public function actionIndex()
-    {
-        $searchModel = new ConsultationSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
-        return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);
-    }
-
-    /**
-     * Displays a single Consultation model.
-     * @param integer $id
-     * @return mixed
-     */
-    public function actionView($id)
-    {
-        return $this->render('view', [
-            'model' => $this->findModel($id),
-        ]);
-    }
-
-    /**
-     * Creates a new Consultation model.
-     * If creation is successful, the browser will be redirected to the 'view' page.
-     * @return mixed
-     */
-    public function actionCreate()
-    {
-        $model = new Consultation();
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        } 
-        
-        return $this->render('create', [
-            'model' => $model,
-        ]);
-    }
-
-    /**
-     * Updates an existing Consultation model.
-     * If update is successful, the browser will be redirected to the 'view' page.
-     * @param integer $id
-     * @return mixed
-     */
-    public function actionUpdate($id)
-    {
-        $model = $this->findModel($id);
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        } 
-        
-        return $this->render('update', [
-            'model' => $model,
-        ]);
-    }
-
-    /**
      * Deletes an existing Consultation model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
@@ -105,9 +41,13 @@ class ConsultationController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        $model = $this->findModel($id);
+        $professorId = $model->professor_id;
+        if(!$model->delete()) {
+            $this->error(Yii::t('flash', 'consulation.delete_error'));
+        }
 
-        return $this->redirect(['index']);
+        return $this->redirect(['professor-consultation', 'professorId' => $professorId]);
     }
 
     /**
@@ -138,7 +78,7 @@ class ConsultationController extends Controller
         $modelConsultationForm->professor_id = $modelProfessor->id;
         $modelConsultationForm->setScenario(ConsultationForm::SCENARIO_CREATE);
         
-        $consultations = Consultation::find()->andWhere(['status' => 1])
+        $consultations = Consultation::find()->andWhere(['!=', 'status', 0])
                                              ->andWhere(['professor_id' => $modelProfessor->id])
                                              ->orderBy(['begin' => 'asc'])
                                              ->all();
@@ -181,10 +121,11 @@ class ConsultationController extends Controller
     }
     
     /**
+     * Sets consultation to public
      */
     public function actionPublic($id)
     {
-        $model = Consultation::find()->andWhere(['status' => 1])->andWhere(['id' => $id])->limit(1)->one();
+        $model = $this->findModel($id);
         $model->public = Consultation::STATUS_PUBLIC;
         
         if (!$model->save()) {
@@ -193,4 +134,39 @@ class ConsultationController extends Controller
         
         return $this->redirect(['professor-consultation', 'professorId' => $model->professor_id]);
     }
+   
+    /**
+     * Sets consultation to not public
+     */
+    public function actionNotPublic($id)
+    {
+        $model = $this->findModel($id);
+        $model->public = Consultation::STATUS_NOT_PUBLIC;
+        
+        $professorId = $model->professor_id;
+        if(!$model->save()) {
+            $this->error(Yii::t('flash', 'consulation.delete_error'));
+        }
+
+        return $this->redirect(['professor-consultation', 'professorId' => $professorId]);
+    }
+    
+    /**
+     * Cancel consulatation
+     */
+    public function actionCancel($id)
+    {
+        $model = Consultation::find()->andWhere(['status' => 1])->andWhere(['id' => $id])->limit(1)->one();
+        $model->status = Consultation::STATUS_CANCEL;
+        
+        if (!$model->save()) {
+            $this->error(Yii::t('flash', 'consultation.cancel_error'));
+        }
+        
+        return $this->redirect(['professor-consultation', 'professorId' => $model->professor_id]);
+    }
+    
+    
+    
+    
 }
