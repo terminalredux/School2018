@@ -4,7 +4,6 @@ namespace app\controllers;
 
 use app\components\web\Controller;
 use app\models\Consultation\Consultation;
-use app\models\Consultation\ConsultationSearch;
 use app\models\Forms\ConsultationForm;
 use app\models\Professor\Professor;
 use app\models\Room\Room;
@@ -12,6 +11,7 @@ use app\models\RoomTypeBuilding\RoomTypeBuilding;
 use Yii;
 use yii\filters\VerbFilter;
 use yii\web\NotFoundHttpException;
+use yii\web\Response;
 
 /**
  * ConsultationController implements the CRUD actions for Consultation model.
@@ -166,6 +166,22 @@ class ConsultationController extends Controller
         return $this->redirect(['professor-consultation', 'professorId' => $model->professor_id]);
     }
     
+    /**
+     * TESTING AJAX METHOD
+     */
+    public function actionCancelAjax($id) 
+    {
+        if (Yii::$app->request->isAjax) {
+           
+            $model = $this->findModel((int)$id);
+            $model->status = Consultation::STATUS_CANCEL;
+                    
+            if ($model->save()) {
+                return 'success';
+            }  
+        }
+        return 'error';
+    }
     
     
     

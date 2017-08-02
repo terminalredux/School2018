@@ -25,6 +25,27 @@ $js = <<<JS
         
             $('#weekType').html(weekType); 
         });
+        
+        $('.btn-cancel-consultation').click( function(){
+            event.preventDefault();
+            var id = $(this).parents()[3]['id'];
+            var button = $(this);
+            var panel = $('#' + id); 
+            $.ajax({
+                url: 'cancel-ajax',    
+                data: {id: id},
+                error: function(xhr, status, error) {},
+                success: function(data) {
+                    button.fadeOut();
+                    panel.find('.consultationStatus').text('Cancel');
+                    panel.removeClass('consultation-active');
+                    panel.addClass('consultation-cancel');
+                    panel.children().eq(0).removeClass('consultation-active-heading');
+                    panel.children().eq(0).addClass('consultation-cancel-heading');
+                }
+            });
+        });
+        
 JS;
 $this->registerJs($js, View::POS_LOAD);
 
@@ -40,7 +61,7 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'consultation.consult
 <div class="col-md-6 consultation-result">
     <?php $i = 1 ?>
     <?php foreach ($consultations as $consultation): ?>
-    <!-- SETS PANEL COLOR DEPENDING ON STATUS -->
+   
     <?php 
         if ($consultation->status == Consultation::STATUS_ACTIVE && $consultation->public == Consultation::STATUS_PUBLIC) {
             $panelclass = 'consultation-active';
@@ -54,8 +75,8 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'consultation.consult
             $headingclass = '';
         }
     ?>
-    <!-- -->
-        <div class="panel panel-default <?= $panelclass ?>">
+   
+        <div class="panel panel-default <?= $panelclass ?>" id="<?= $consultation->id ?>">
             <div class="panel-heading consultation-panel-heading <?= $headingclass ?>">
                 <div class="row">
                     <div class="" style="cursor: pointer;" data-toggle="collapse" data-target="<?= '#content' . $consultation->id?>">
@@ -74,24 +95,24 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'consultation.consult
                     </div>
                     <div class="col-xs-1">
                         <?php if ($consultation->public): ?>
-                        <i class="fa fa-eye" aria-hidden="true" title="<?= Yii::t('app', 'system.public') ?>"></i>
+                            <i class="fa fa-eye" aria-hidden="true" title="<?= Yii::t('app', 'system.public') ?>"></i>
                         <?php else: ?>
-                            <?= Html::a('<i class="fa fa-eye-slash" aria-hidden="true" title="' . Yii::t('app', 'system.publish') . '"></i>', ['public', 'id' => $consultation->id]) ?>
+                            <i class="fa fa-eye-slash" aria-hidden="true" title="<?= Yii::t('app', 'system.not_public') ?>"></i>
                         <?php endif; ?>
                     </div>
                 </div>
             </div>
             <div class="panel-body consultation-panel-body collapse" id="<?= 'content' . $consultation->id ?>">
                 <div class="row"  style="margin-top: 10px;">
-                    <div class="col-md-6">
+                    <div class="col-xs-6">
                         <?= $consultation->room->roomTypeBuilding->building->name ?><br>
                         <?= Yii::t('app', 'room.room') . ': ' .$consultation->room->number ?> 
                         <?= '(' . $consultation->room->roomTypeBuilding->roomType->type . ')' ?><br>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-xs-6">
                         <div style="float: right;">
                             <?= Yii::t('app', 'system.status') . ': ' ?>
-                            <?= Consultation::statusList()[$consultation->status] ?><br>
+                            <span class="consultationStatus"><?= Consultation::statusList()[$consultation->status] ?></span><br>
                             <?= Consultation::publicList()[$consultation->public] ?>
                         </div>
                     </div>
@@ -106,19 +127,24 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'consultation.consult
                         ],
                     ]) ?>
                     <?php if ($consultation->public): ?>    
-                    <?= Html::a('<i class="fa fa-eye-slash" aria-hidden="true"></i>' . ' ' . Yii::t('app', 'system.unpublish'), ['not-public', 'id' => $consultation->id], [
-                        'style' => 'margin-left: 10px;',
-                    ]) ?>  
+                        <?= Html::a('<i class="fa fa-eye-slash" aria-hidden="true"></i>' . ' ' . Yii::t('app', 'system.unpublish'), ['not-public', 'id' => $consultation->id], [
+                            'style' => 'margin-left: 10px;',
+                        ]) ?>  
                     <?php else: ?>
-                    <?= Html::a('<i class="fa fa-eye" aria-hidden="true"></i>' . ' ' . Yii::t('app', 'system.publish'), ['public', 'id' => $consultation->id], [
-                        'style' => 'margin-left: 10px;',
-                    ]) ?>  
-                    <?php endif; ?>
+                        <?= Html::a('<i class="fa fa-eye" aria-hidden="true"></i>' . ' ' . Yii::t('app', 'system.publish'), ['public', 'id' => $consultation->id], [
+                            'style' => 'margin-left: 10px;',
+                        ]) ?>  
+                        <?php endif; ?>
                     <?php if ($consultation->status != Consultation::STATUS_CANCEL && $consultation->public == Consultation::STATUS_PUBLIC): ?>
-                    <?= Html::a('<i class="fa fa-minus-circle" aria-hidden="true"></i>' . ' ' . Yii::t('app', 'consultation.status_cancel'), ['cancel', 'id' => $consultation->id], [
-                        'style' => 'margin-left: 10px;',
-                    ]) ?>
-                    <?php endif; ?>  
+                        <?= Html::a('<i class="fa fa-minus-circle" aria-hidden="true"></i>' . ' ' . Yii::t('app', 'consultation.status_cancel'), 
+                        ['#'],
+                        [
+                            'style' => 'margin-left: 10px;',
+                            'class' => 'btn-cancel-consultation',
+                        ])?>    
+                    <?php endif; ?> 
+                        
+                    
                     </div>
                 </div>
             </div>
