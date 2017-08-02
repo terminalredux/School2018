@@ -124,4 +124,7 @@ return [
     'system.not_public' => 'Not public',
     'system.status' => 'Status',
     'system.unpublish' => 'Unpublish',
+    'system.week_odd' => 'Odd',
+    'system.week_even' => 'Even',
+    
 ];

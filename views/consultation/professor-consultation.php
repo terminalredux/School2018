@@ -84,7 +84,8 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'consultation.consult
                             <?= $i . '. ' ?>
                         </div>
                         <div class="col-xs-5 text-center">
-                            <?= Yii::$app->formatter->asDate($consultation->begin, 'dd-MM-yyyy') ?>
+                            <?= Yii::$app->formatter->asDate($consultation->begin, 'dd-MM-yyyy'). ' - ' ?> 
+                            <?= date('W', $consultation->begin)%2==1 ? Yii::t('app', 'system.week_odd') : Yii::t('app', 'system.week_even') ?>
                         </div>
                         <div class="col-xs-3">
                             <span style="float: right;">
