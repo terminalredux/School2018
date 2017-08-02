@@ -26,6 +26,30 @@ $js = <<<JS
             $('#weekType').html(weekType); 
         });
         
+        $('.btn-publish-consultation').click(function() {
+            event.preventDefault();
+            var id = $(this).parents()[3]['id'];
+            var button = $(this);
+            var panel = $('#' + id); 
+            $.ajax({
+                url: 'public-ajax',    
+                data: {id: id},
+                error: function(xhr, status, error) {},
+                success: function(data) {
+                    panel.find('.consultationPublic').text('Public');
+                    panel.find('.publicHeading').html('<i class="fa fa-eye" aria-hidden="true" class="publicHeading" title="Public"></i>');
+        
+                    button.fadeOut();
+        
+                    panel.addClass('consultation-active');
+                    panel.children().eq(0).addClass('consultation-active-heading');
+                    
+                    
+                    
+                }
+            });
+        });
+        
         $('.btn-cancel-consultation').click( function(){
             event.preventDefault();
             var id = $(this).parents()[3]['id'];
@@ -94,7 +118,7 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'consultation.consult
                             </span>
                         </div>
                     </div>
-                    <div class="col-xs-1">
+                    <div class="col-xs-1 publicHeading">
                         <?php if ($consultation->public): ?>
                             <i class="fa fa-eye" aria-hidden="true" title="<?= Yii::t('app', 'system.public') ?>"></i>
                         <?php else: ?>
@@ -114,7 +138,7 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'consultation.consult
                         <div style="float: right;">
                             <?= Yii::t('app', 'system.status') . ': ' ?>
                             <span class="consultationStatus"><?= Consultation::statusList()[$consultation->status] ?></span><br>
-                            <?= Consultation::publicList()[$consultation->public] ?>
+                            <span class="consultationPublic"><?= Consultation::publicList()[$consultation->public] ?></span>
                         </div>
                     </div>
                 </div>
@@ -128,14 +152,15 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'consultation.consult
                         ],
                     ]) ?>
                     <?php if ($consultation->public): ?>    
-                        <?= Html::a('<i class="fa fa-eye-slash" aria-hidden="true"></i>' . ' ' . Yii::t('app', 'system.unpublish'), ['not-public', 'id' => $consultation->id], [
-                            'style' => 'margin-left: 10px;',
-                        ]) ?>  
+                        
                     <?php else: ?>
-                        <?= Html::a('<i class="fa fa-eye" aria-hidden="true"></i>' . ' ' . Yii::t('app', 'system.publish'), ['public', 'id' => $consultation->id], [
+                        <?= Html::a('<i class="fa fa-eye" aria-hidden="true"></i>' . ' ' . Yii::t('app', 'system.publish'), 
+                        ['#'],
+                        [
                             'style' => 'margin-left: 10px;',
-                        ]) ?>  
-                        <?php endif; ?>
+                            'class' => 'btn-publish-consultation',
+                        ])?>    
+                    <?php endif; ?>
                     <?php if ($consultation->status != Consultation::STATUS_CANCEL && $consultation->public == Consultation::STATUS_PUBLIC): ?>
                         <?= Html::a('<i class="fa fa-minus-circle" aria-hidden="true"></i>' . ' ' . Yii::t('app', 'consultation.status_cancel'), 
                         ['#'],

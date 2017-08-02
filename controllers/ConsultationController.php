@@ -121,53 +121,42 @@ class ConsultationController extends Controller
     }
     
     /**
-     * Sets consultation to public
+     * AJAX method sets consultation
+     * public to true 
+     * @param id
+     * @return string
      */
-    public function actionPublic($id)
+    public function actionPublicAjax($id)
     {
-        $model = $this->findModel($id);
-        $model->public = Consultation::STATUS_PUBLIC;
-        
-        if (!$model->save()) {
-            $this->error(Yii::t('flash', 'consultation.publish_error'));
+        if (Yii::$app->request->isAjax) {
+            $model = $this->findModel((int)$id);
+            $model->public = Consultation::STATUS_PUBLIC;
+            
+            if($model->save()) {
+                return 'success';
+            }
         }
-        
-        return $this->redirect(['professor-consultation', 'professorId' => $model->professor_id]);
-    }
-   
-    /**
-     * Sets consultation to not public
-     */
-    public function actionNotPublic($id)
-    {
-        $model = $this->findModel($id);
-        $model->public = Consultation::STATUS_NOT_PUBLIC;
-        
-        $professorId = $model->professor_id;
-        if(!$model->save()) {
-            $this->error(Yii::t('flash', 'consulation.delete_error'));
-        }
-
-        return $this->redirect(['professor-consultation', 'professorId' => $professorId]);
+        return 'error';
     }
     
     /**
-     * Cancel consulatation
+     * AJAX method sets consultation
+     * publit to false
+     * @param id
+     * @return string
      */
-    public function actionCancel($id)
+    public function actionNotPublicAjax($id)
     {
-        $model = Consultation::find()->andWhere(['status' => 1])->andWhere(['id' => $id])->limit(1)->one();
-        $model->status = Consultation::STATUS_CANCEL;
         
-        if (!$model->save()) {
-            $this->error(Yii::t('flash', 'consultation.cancel_error'));
-        }
-        
-        return $this->redirect(['professor-consultation', 'professorId' => $model->professor_id]);
     }
+  
+    
     
     /**
-     * TESTING AJAX METHOD
+     * AJAX method sets consultation 
+     * status to cancel
+     * @param int id
+     * @return string
      */
     public function actionCancelAjax($id) 
     {
