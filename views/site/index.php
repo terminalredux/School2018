@@ -23,6 +23,16 @@ $this->title = 'My Yii Application';
             <h5><?= Html::a(Yii::t('app', 'academic_title.academic_titles'), ['/academic-title/index']) ?></h5>
         </div>
     </div>
+    <div class="row">
+        <div class="col-xs-3 text-center main-menu-options">
+            <img src="images/university.png">
+            <h5><?= Html::a(Yii::t('app', 'department.departments'), ['/department/index']) ?></h5>
+        </div>
+        <div class="col-xs-3 text-center main-menu-options">
+            <img src="images/column.png">
+            <h5><?= Html::a(Yii::t('app', 'major.majors'), ['/major/index']) ?></h5>
+        </div>
+    </div>
     
     
 </div>

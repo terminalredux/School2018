@@ -3,6 +3,8 @@
 namespace app\models\Department;
 
 use Yii;
+use yii\behaviors\TimestampBehavior;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "department".
@@ -13,8 +15,9 @@ use Yii;
  * @property integer $status
  * @property integer $created_at
  * @property integer $updated_at
+ * @property string $short_name
  */
-class Department extends \yii\db\ActiveRecord
+class Department extends ActiveRecord
 {
     /**
      * @inheritdoc
@@ -42,10 +45,11 @@ class Department extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name'], 'required'],
+            [['name', 'short_name'], 'required'],
             [['description'], 'string'],
             [['status', 'created_at', 'updated_at'], 'integer'],
             [['name'], 'string', 'max' => 100],
+            [['short_name'], 'string', 'max' => 50],
         ];
     }
 
@@ -61,6 +65,7 @@ class Department extends \yii\db\ActiveRecord
             'status' => Yii::t('app', 'department.status'),
             'created_at' => Yii::t('app', 'department.created_at'),
             'updated_at' => Yii::t('app', 'department.updated_at'),
+            'short_name' => Yii::t('app', 'department.short_name'),
         ];
     }
 
