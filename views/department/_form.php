@@ -5,8 +5,6 @@ use yii\widgets\ActiveForm;
 
 ?>
 
-<div class="department-form">
-
     <?php $form = ActiveForm::begin(); ?>
 
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
@@ -18,5 +16,3 @@ use yii\widgets\ActiveForm;
   
 
     <?php ActiveForm::end(); ?>
-
-</div>
