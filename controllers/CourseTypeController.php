@@ -37,29 +37,20 @@ class CourseTypeController extends Controller
     {
         $searchModel = new CourseTypeSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $model = new CourseType();
 
+        if ($model->load(Yii::$app->request->post())) {
+            if (!$model->save()) {
+                $this->error(Yii::t('flash', 'course_type.save_error'));
+            }
+            return $this->redirect(['index']);
+        } 
+        
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
-        ]);
-    }
-
-    /**
-     * Creates a new CourseType model.
-     * If creation is successful, the browser will be redirected to the 'view' page.
-     * @return mixed
-     */
-    public function actionCreate()
-    {
-        $model = new CourseType();
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        } 
-        return $this->render('create', [
             'model' => $model,
         ]);
-        
     }
 
     /**
@@ -72,8 +63,13 @@ class CourseTypeController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if ($model->load(Yii::$app->request->post())) {
+            if ($model->save()) {
+                $this->success(Yii::t('flash', 'course_type.update_success'));
+            } else {
+                $this->error(Yii::t('flash', 'course_type.update_error'));
+            }
+            return $this->redirect(['index']);
         } 
         return $this->render('update', [
             'model' => $model,
@@ -89,8 +85,9 @@ class CourseTypeController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
-
+        if (!$this->findModel($id)->delete()) {
+            $this->error(Yii::t('flash', 'course_type.delete_error'));
+        }
         return $this->redirect(['index']);
     }
 

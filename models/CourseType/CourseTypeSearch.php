@@ -47,6 +47,11 @@ class CourseTypeSearch extends CourseType
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'sort' => [
+                'defaultOrder' => [
+                    'type' => SORT_ASC
+                ]
+            ],
         ]);
 
         $this->load($params);
