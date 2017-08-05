@@ -77,8 +77,16 @@ class DepartmentController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
-
+        $model = $this->findModel($id);
+        if ($model->majors) {
+            $this->error(Yii::t('flash', 'department.error_major_relations'));
+        } else {
+            if ($model->delete()) {
+                $this->success(Yii::t('flash', 'department.delete_success'));
+            } else {
+                $this->error(Yii::t('flash', 'department.delete_error'));
+            }
+        }
         return $this->redirect(['index']);
     }
 

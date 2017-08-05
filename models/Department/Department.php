@@ -2,8 +2,10 @@
 
 namespace app\models\Department;
 
+use app\models\Major\Major;
 use Yii;
 use yii\behaviors\TimestampBehavior;
+use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 
 /**
@@ -77,4 +79,13 @@ class Department extends ActiveRecord
     {
         return new DepartmentQuery(get_called_class());
     }
+    
+    /**
+     * @return ActiveQuery
+     */
+    public function getMajors()
+    {
+        return $this->hasMany(Major::className(), ['department_id' => 'id']);
+    }
+
 }

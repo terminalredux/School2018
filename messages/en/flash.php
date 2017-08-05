@@ -56,4 +56,7 @@ return [
     'major.update_success' => 'Major has been updated',
     'major.delete_error' => 'Error while deleting Major',
     'major.delete_success' => 'Major has been removed',
+    'department.error_major_relations' => 'Department has been used in some majors and can not be removed',
+    'department.delete_success' => 'Department has been removed',
+    'department.delete_error' => 'Error has been ocured while deleting department',
 ];
