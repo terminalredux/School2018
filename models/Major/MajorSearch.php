@@ -12,6 +12,7 @@ use app\models\Major\Major;
  */
 class MajorSearch extends Major
 {
+    
     /**
      * @inheritdoc
      */
@@ -19,8 +20,16 @@ class MajorSearch extends Major
     {
         return [
             [['id', 'department_id', 'status', 'created_at', 'updated_at'], 'integer'],
-            [['name', 'description'], 'safe'],
+            [['name', 'description', 'department.name'], 'safe'],
         ];
+    }
+    
+    /**
+     * @inheritdoc
+     */
+    public function attributes()
+    {
+        return array_merge(parent::attributes(), ['department.name']);
     }
 
     /**
@@ -43,11 +52,15 @@ class MajorSearch extends Major
     {
         $query = Major::find();
 
-        // add conditions that should always apply here
-
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
+        
+       $query->joinWith(['department']);
+        $dataProvider->sort->attributes['department.name'] = [
+            'asc' => ['department.name' => SORT_ASC],
+            'desc' => ['department.name' => SORT_DESC],
+        ];
 
         $this->load($params);
 
@@ -67,7 +80,8 @@ class MajorSearch extends Major
         ]);
 
         $query->andFilterWhere(['like', 'name', $this->name])
-            ->andFilterWhere(['like', 'description', $this->description]);
+            ->andFilterWhere(['like', 'description', $this->description])
+            ->andFilterWhere(['like', 'department.name', $this->getAttribute('department.name')]);
 
         return $dataProvider;
     }

@@ -19,8 +19,11 @@ $this->params['breadcrumbs'][] = $this->title;
         'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-
-            'department_id',
+            [
+                'label' => Yii::t('app', 'department.department'),
+                'attribute' => 'department.name',
+                'value' => 'department.name'
+            ],
             'name',
             'description:ntext',
             [
