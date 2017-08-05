@@ -3,6 +3,8 @@
 namespace app\models\CourseType;
 
 use Yii;
+use yii\behaviors\TimestampBehavior;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "course_type".
@@ -13,7 +15,7 @@ use Yii;
  * @property integer $created_at
  * @property integer $updated_at
  */
-class CourseType extends \yii\db\ActiveRecord
+class CourseType extends ActiveRecord
 {
     /**
      * @inheritdoc

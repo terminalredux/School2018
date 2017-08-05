@@ -58,6 +58,8 @@ return [
     'course_type.update_at' => 'Update at',
     'course_type.course_type' => 'Course type',
     'course_type.course_types' => 'Course types',
+    'course_type.create_course_type' => 'Create course type',
+    'course_type.update_course_type' => 'Update course type',
     'department.id' => 'ID',
     'department.name' => 'Name',
     'department.description' => 'Description',
