@@ -130,6 +130,7 @@ return [
     'major.updated_at' => 'Updated at',
     'major.create_major' => 'Create major',
     'major.update_major' => 'Update major',
+    'major.choose_department' => 'Department',
     'system.school2018' => 'School 2018',
     'system.add' => 'Add',
     'system.create' => 'Create',

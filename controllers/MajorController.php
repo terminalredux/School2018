@@ -53,8 +53,13 @@ class MajorController extends Controller
     {
         $model = new Major();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if ($model->load(Yii::$app->request->post())) {
+            if ($model->save()) {
+                $this->success(Yii::t('flash', 'major.save_success'));
+            } else {
+                $this->error(Yii::t('flash', 'major.save_error'));
+            }
+            return $this->redirect(['index']);
         } 
         return $this->render('create', [
             'model' => $model,
@@ -72,7 +77,12 @@ class MajorController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post())) {
+            if ($model->save()) {
+                $this->success(Yii::t('flash', 'major.update_success'));
+            } else {
+                $this->error(Yii::t('flash', 'major.update_error'));
+            }
             return $this->redirect(['index']);
         }
         return $this->render('update', [
@@ -89,8 +99,12 @@ class MajorController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
-
+        
+        if ($this->findModel($id)->delete()) {
+            $this->success(Yii::t('flash', 'major.delete_success'));
+        } else {
+            $this->error(Yii::t('flash', 'major.delete_error'));
+        }
         return $this->redirect(['index']);
     }
 

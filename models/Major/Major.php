@@ -7,6 +7,7 @@ use Yii;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "major".
@@ -88,5 +89,11 @@ class Major extends ActiveRecord
     public static function find()
     {
         return new MajorQuery(get_called_class());
+    }
+    
+    public static function getDepartmentsList()
+    {
+        $models = Department::find()->andWhere(['status' => 1])->all();
+        return ArrayHelper::map($models, 'id', 'name');
     }
 }

@@ -50,4 +50,10 @@ return [
     'room.delete_relations_exam' => 'This room has been used in some session exam and can not be removed.',
     'room.delete_relations_course' => 'This room has been used in some course realization and can not be removed.',
     'room.delete_relations_circle' => 'This room has been used in some scientific circle meeting and can not be removed.',
+    'major.save_success' => 'Major has been created',
+    'major.save_error' => 'Error while saving Major',
+    'major.update_error' => 'Error while updating Major',
+    'major.update_success' => 'Major has been updated',
+    'major.delete_error' => 'Error while deleting Major',
+    'major.delete_success' => 'Major has been removed',
 ];
