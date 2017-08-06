@@ -36,8 +36,16 @@ $this->title = 'My Yii Application';
             <img src="images/blackboard-1.png">
             <h5><?= Html::a(Yii::t('app', 'course_type.course_types'), ['/course-type/index']) ?></h5>
         </div>
-        
-        
+        <div class="col-xs-3 text-center main-menu-options">
+            <img src="images/books.png">
+            <h5><?= Html::a(Yii::t('app', 'course_basic.courses_basic'), ['/course-basic/index']) ?></h5>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-3 text-center main-menu-options">
+            <img src="images/bookshelf.png">
+            <h5><?= Html::a(Yii::t('app', 'course.courses'), ['/course/index']) ?></h5>
+        </div>
     </div>
     
     
