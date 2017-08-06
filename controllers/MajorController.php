@@ -123,4 +123,28 @@ class MajorController extends Controller
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
+    
+    /**
+     * @param int id - major id
+     * @return mixed
+     */
+    public function actionView($id)
+    {
+        $model = $this->findModel($id);
+        return $this->render('view', ['model' => $model]);
+    }
+    
+    /**
+     * @param int id - major id
+     * @return mixed
+     */
+    public function actionCourses($id)
+    {
+        $modelMajor = $this->findModel($id);
+       
+        
+        return $this->render('courses', [
+            'modelMajor' => $modelMajor
+        ]);
+    }
 }
