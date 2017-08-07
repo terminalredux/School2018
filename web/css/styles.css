@@ -163,6 +163,10 @@ hr {
 .input-group-addon {
     border-radius: 0;
 }
+
+.no-border-radius {
+    border-radius: 0 !important;
+}
 /* --------------------     GRIDVIEW    -------------------- */
 /* --------------------                 -------------------- */
 th a {

@@ -5,6 +5,7 @@ namespace app\models\CourseType;
 use Yii;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "course_type".
@@ -70,5 +71,11 @@ class CourseType extends ActiveRecord
     public static function find()
     {
         return new CourseTypeQuery(get_called_class());
+    }
+    
+    public static function getCourseTypeList()
+    {
+        $models = CourseType::find()->andWhere(['status' => 1])->orderBy(['type' => 'asc'])->all();
+        return ArrayHelper::map($models, 'id', 'type');
     }
 }

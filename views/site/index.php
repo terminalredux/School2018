@@ -41,12 +41,4 @@ $this->title = 'My Yii Application';
             <h5><?= Html::a(Yii::t('app', 'course_basic.courses_basic'), ['/course-basic/index']) ?></h5>
         </div>
     </div>
-    <div class="row">
-        <div class="col-xs-3 text-center main-menu-options">
-            <img src="images/bookshelf.png">
-            <h5><?= Html::a(Yii::t('app', 'course.courses'), ['/course/index']) ?></h5>
-        </div>
-    </div>
-    
-    
 </div>

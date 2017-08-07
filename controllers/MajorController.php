@@ -2,12 +2,13 @@
 
 namespace app\controllers;
 
-use Yii;
+use app\components\web\Controller;
+use app\models\Course\Course;
 use app\models\Major\Major;
 use app\models\Major\MajorSearch;
-use app\components\web\Controller;
-use yii\web\NotFoundHttpException;
+use Yii;
 use yii\filters\VerbFilter;
+use yii\web\NotFoundHttpException;
 
 /**
  * MajorController implements the CRUD actions for Major model.
@@ -141,10 +142,23 @@ class MajorController extends Controller
     public function actionCourses($id)
     {
         $modelMajor = $this->findModel($id);
-       
+        $modelsCourse = Course::find()->andWhere(['status' => 1])->andWhere(['major_id' => $modelMajor->id])->all();
+        $modelCourse = new Course();
+        $modelCourse->major_id = $modelMajor->id;
+        $modelCourse->setScenario(Course::SCENARIO_CREATE);
+        
+        if ($modelCourse->load(Yii::$app->request->post())) {
+            if ($modelCourse->save()) {
+                $this->success(Yii::t('flash', 'course.save_success'));
+            } else {
+                $this->error(Yii::t('flash', 'course.save_error'));
+            }
+        }
         
         return $this->render('courses', [
-            'modelMajor' => $modelMajor
+            'modelMajor' => $modelMajor,
+            'modelCourse' => $modelCourse,
+            'modelsCourse' => $modelsCourse,
         ]);
     }
 }

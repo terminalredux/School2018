@@ -15,6 +15,8 @@ return [
     'consultation.publish_error' => 'Error while changing consultation status to public',
     'consulation.delete_error' => 'Error while deleting consultation',
     'consultation.cancel_error' => 'Error while canceling consultation',
+    'course.save_error' => 'Error while creating course',
+    'course.save_success' => 'Course has been created',
     'course_type.save_error' => 'Error while saving course type',
     'course_type.update_success' => 'Course type has been updated',
     'course_type.update_error' => 'Error while updating course type',

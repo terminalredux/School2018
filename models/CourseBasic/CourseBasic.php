@@ -5,6 +5,7 @@ namespace app\models\CourseBasic;
 use Yii;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "course_basic".
@@ -70,5 +71,11 @@ class CourseBasic extends ActiveRecord
     public static function find()
     {
         return new CourseBasicQuery(get_called_class());
+    }
+    
+    public static function getBasicCourseList()
+    {
+        $models = CourseBasic::find()->andWhere(['status' => 1])->orderBy(['name' => 'asc'])->all();
+        return ArrayHelper::map($models, 'id', 'name');
     }
 }

@@ -29,12 +29,25 @@ use yii\db\ActiveRecord;
  */
 class Course extends ActiveRecord
 {
+    const SCENARIO_CREATE = 'create-course';
+    
+        
     /**
      * @inheritdoc
      */
     public static function tableName()
     {
         return 'course';
+    }
+    
+    /**
+     * @inheritdoc
+     */
+    public function scenarios()
+    {
+        return array_merge(parent::scenarios(), [
+            self::SCENARIO_CREATE => ['course_basic_id', 'course_type_id', 'ects', 'total_hours'],
+        ]);
     }
     
     /**
@@ -55,7 +68,7 @@ class Course extends ActiveRecord
     public function rules()
     {
         return [
-            [['course_basic_id', 'course_type_id', 'major_id', 'ects', 'total_hours'], 'required'],
+            [['course_basic_id', 'course_type_id', 'ects', 'total_hours'], 'required'],
             [['course_basic_id', 'course_type_id', 'major_id', 'ects', 'total_hours', 'status', 'created_at', 'updated_at'], 'integer'],
             [['course_basic_id'], 'exist', 'skipOnError' => true, 'targetClass' => CourseBasic::className(), 'targetAttribute' => ['course_basic_id' => 'id']],
             [['course_type_id'], 'exist', 'skipOnError' => true, 'targetClass' => CourseType::className(), 'targetAttribute' => ['course_type_id' => 'id']],
@@ -113,4 +126,6 @@ class Course extends ActiveRecord
     {
         return new CourseQuery(get_called_class());
     }
+    
+    
 }
